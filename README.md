@@ -11,3 +11,4 @@ Repositório com o trabalho feito para o projeto final do ensino médio como um 
 
 # EN - Software Project
 Repository with the work done for the final project of high school as an app called HelpMed
+- Project Name: HelpMed
