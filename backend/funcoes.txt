@@ -1,0 +1,6 @@
+Pasta			Responsabilidade
+controllers		Receber as requisições da API e retornar as respostas
+services		Implementar os casos de uso e regras da aplicação
+models    		Representar as entidades e operações básicas ligadas ao banco de dados
+repositories    Concentrar consultas mais específicas ou operações que extrapolam o CRUD básico
+database    	Guardar o arquivo de criação do banco de dados e suas tabelas
