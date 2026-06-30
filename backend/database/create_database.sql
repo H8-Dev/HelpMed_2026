@@ -6,6 +6,7 @@ CPF varchar(14) primary key not null,
 senha varchar(50) not null,
 nome varchar(50) not null,
 sobrenome varchar(80) not null,
+email varchar(120) not null unique,
 data_create timestamp default current_timestamp not null
 ) engine = InnoDB;
 
@@ -15,6 +16,7 @@ CPF varchar(14) not null,
 senha varchar(50) not null,
 nome varchar(50) not null,
 sobrenome varchar(80) not null,
+email varchar(120) not null unique,
 data_create timestamp default current_timestamp not null
 ) engine = InnoDB;
 
@@ -33,6 +35,6 @@ last_update timestamp default current_timestamp not null
 
 create table pagamentos(
 pag_id int primary key not null,
-total decimal not null,
+total decimal(10,2) not null,
 data_hora timestamp default current_timestamp not null
 ) engine = InnoDB;
