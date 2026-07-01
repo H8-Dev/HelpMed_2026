@@ -1,4 +1,4 @@
-﻿# PT- Projeto de Software
+﻿# Projeto de Software
 Repositório com o trabalho feito para o projeto final do ensino médio com um app chamado Helpmed
 - Nome do Projeto: Helpmed
 - Nome Completo dos integrantes:<br>
