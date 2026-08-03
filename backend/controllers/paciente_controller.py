@@ -2,10 +2,13 @@ from flask import Flask, jsonify, render_template, request, url_for, redirect, B
 
 from models.database import db
 
+from services.paciente.cadastrar_paciente_service import CriarPacienteService
+
 pac_controller = Blueprint("pac_controller", __name__)
 
 @pac_controller.route('/cadastrar', methods=['POST'])
 def cadastrar_paciente():
+    try:
         dados = {
             "cpf": str(request.form['cpf']),
             "senha": str(request.form['senha']),
@@ -13,4 +16,15 @@ def cadastrar_paciente():
             "sobrenome": str(request.form['sobrenome']),
             "email": str(request.form['email'])
         }
-        return jsonify(dados), 200
+
+        service = CriarPacienteService()
+        paciente = service.cadastrar(dados)
+        return jsonify(paciente), 201
+    
+    except ValueError as error:
+        return jsonify({"error": str(error)}), 400
+
+    except SQLAlchemyError:
+        db.session.rollback()
+        return jsonify({"error": "Erro ao cadastrar paciente."}), 500
+        

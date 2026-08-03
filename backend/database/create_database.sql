@@ -1,4 +1,4 @@
-create database helpmed;
+create database if not exists helpmed;
 use helpmed;
 
 create table pacientes(
