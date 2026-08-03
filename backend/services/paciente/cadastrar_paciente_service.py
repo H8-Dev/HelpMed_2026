@@ -1,20 +1,19 @@
 from datetime import datetime
-from models.medico_model import Medico
+from models.pacientes_model import Paciente
 
-class CriarMedicoService:
+class CriarPacienteService:
     def cadastrar(self, dados):
-        required = ["crm", "cpf", "senha", "nome", "sobrenome", "email"]
+        required = ["cpf", "senha", "nome", "sobrenome", "email"]
 
         for item in required:
             if not dados.get(item):
                 raise ValueError(f"O campo {item} é obrigatório!")
             
-        crm_existente = Medico.buscar_crm(dados["crm"])
-        if crm_existente:
-            raise ValueError("Este CRM já está cadastrado.")
+        cpf_existente = Paciente.buscar_cpf(dados["cpf"])
+        if cpf_existente:
+            raise ValueError("Este CPF já está cadastrado.")
         
-        medico = Medico(
-            crm = dados["crm"],
+        paciente = Paciente(
             cpf = dados["cpf"],
             senha =  dados["senha"],
             nome =  dados["nome"],
@@ -23,5 +22,5 @@ class CriarMedicoService:
             data_create = datetime.now().timestamp()
         )
 
-        medico.salvar()
+        paciente.salvar()
         return

@@ -2,12 +2,11 @@ from flask import Flask, jsonify, render_template, request, url_for, redirect, B
 
 from models.database import db
 
-med_controller = Blueprint("med_controller", __name__)
+pac_controller = Blueprint("pac_controller", __name__)
 
-@med_controller.route('/cadastrar', methods=['POST'])
-def cadastrar_medico():
+@pac_controller.route('/cadastrar', methods=['POST'])
+def cadastrar_paciente():
         dados = {
-            "crm": str(request.form['crm']),
             "cpf": str(request.form['cpf']),
             "senha": str(request.form['senha']),
             "nome": str(request.form['nome']),

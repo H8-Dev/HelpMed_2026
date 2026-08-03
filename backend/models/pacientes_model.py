@@ -29,3 +29,8 @@ class Paciente(db.Model):
     def deletar(self):
         db.session.delete(self)
         db.session.commit()
+
+
+    @staticmethod
+    def buscar_cpf(cpf):
+        return Paciente.query.filter_by(cpf=cpf).first()
