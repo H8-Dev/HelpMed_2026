@@ -42,3 +42,15 @@ class Medico(db.Model):
     @staticmethod
     def buscar_formacao(formacao):
         return Medico.query.filter_by(formacao=formacao).all()
+
+    def to_dict(self):
+        return {
+            "crm": self.crm,
+            "cpf": self.cpf,
+            "senha": self.senha,
+            "nome": self.nome,
+            "sobrenome": self.sobrenome,
+            "email": self.email,
+            "formacao": self.formacao,
+            "data_create": self.data_create
+        }

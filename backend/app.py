@@ -1,13 +1,13 @@
-from flask import Flask, jsonify
-from flask_cors import CORS
-from dotenv import load_dotenv
+from flask import Flask, jsonify #type: ignore
+from flask_cors import CORS #type: ignore
+from dotenv import load_dotenv #type: ignore
 import os
 
 
 from models.database import db
 from controllers.medico_controller import med_controller
 from controllers.paciente_controller import pac_controller
-from controllers.chat_controller import chat_controller
+from controllers.atend_controller import atend_controller
 
 
 def create_app():
@@ -22,7 +22,7 @@ def create_app():
 
     app.register_blueprint(med_controller)
     app.register_blueprint(pac_controller)
-    app.register_blueprint(chat_controller)
+    app.register_blueprint(atend_controller)
 
     return app
 

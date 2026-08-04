@@ -6,7 +6,7 @@ from services.paciente.cadastrar_paciente_service import CriarPacienteService
 
 pac_controller = Blueprint("pac_controller", __name__)
 
-@pac_controller.route('/cadastrar', methods=['POST'])
+@pac_controller.post('/cadastrar')
 def cadastrar_paciente():
     try:
         dados = {
@@ -24,7 +24,6 @@ def cadastrar_paciente():
     except ValueError as error:
         return jsonify({"error": str(error)}), 400
 
-    except SQLAlchemyError:
+    except SQLAlchemyError: #type: ignore
         db.session.rollback()
         return jsonify({"error": "Erro ao cadastrar paciente."}), 500
-        
