@@ -3,8 +3,10 @@ from .database import db
 class Chat(db.Model):
     __tablename__ = "chat"
 
-    id = db.Column(db.Interger, primary_key=True, nullable=False)
+    chat_id = db.Column(db.Interger, primary_key=True, nullable=False)
     url = db.Column(db.String(2083), nullable=False)
+    med_id = db.Column(db.String(15), db.ForeignKey("medicos.crm"), nullable=False)
+    pac_id = db.Column(db.String(14), db.ForeignKey("pacientes.cpf"), nullable=False)
     last_update = db.Column(db.TIMESTAMP, nullable=False)
 
     def salvar(self):

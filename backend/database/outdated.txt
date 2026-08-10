@@ -1,0 +1,5 @@
+Outdated tables in /create_database.sql to fix later
+
+- Arquivos
+- Medicos
+- Pagamentos
