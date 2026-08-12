@@ -3,7 +3,7 @@ from models.medico_model import Medico
 
 class CriarMedicoService:
     def cadastrar(self, dados):
-        required = ["crm", "cpf", "senha", "nome", "sobrenome", "email"]
+        required = ["crm", "cpf", "senha", "nome", "sobrenome", "email", "formacao"]
 
         for item in required:
             if not dados.get(item):
@@ -20,8 +20,9 @@ class CriarMedicoService:
             nome =  dados["nome"],
             sobrenome =  dados["sobrenome"],
             email =  dados["email"],
-            data_create = datetime.now().timestamp()
+            formacao = dados["formacao"],
+            data_create = datetime.now()
         )
 
         medico.salvar()
-        return
+        return medico.to_dict()
