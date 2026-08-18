@@ -3,7 +3,7 @@ from .database import db
 class Medico(db.Model):
     __tablename__ = "medicos"
 
-    crm = db.Column(db.String(15), primary_key=True, nullable=False)
+    crm = db.Column(db.String(9), primary_key=True, nullable=False)
     cpf = db.Column(db.String(14), nullable=False)
     senha = db.Column(db.String(50), nullable=False)
     nome = db.Column(db.String(50), nullable=False)

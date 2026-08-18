@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelpMed - Menu Principal</title>
+  <link rel="stylesheet" href="inicio.css" />
+  <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+  <!-- API oficial do Font Awesome 6 do seu código original -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="icon" type="image/png" href="../assets/logo_icon.png">
+</head>
+<body>
+
+  <!-- Elemento de fundo que carrega a imagem background.png -->
+  <div class="bg-shape"></div>
+
+  <div class="dashboard-layout">
+    
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <a href="#" class="brand-logo" title="HelpMed">
+          <img src="../assets/logo.png" alt="HelpMed Logo" width="120px" height="85px">
+        </a>
+        <nav class="sidebar-nav">
+          <button class="nav-item active" title="Mensagens">
+            <i class="fa-regular fa-comment-dots"></i>
+          </button>
+          <button class="nav-item" title="Documentos">
+            <i class="fa-regular fa-folder"></i>
+          </button>
+        </nav>
+      </div>
+
+      <div class="sidebar-bottom">
+        <div class="user-avatar" title="Perfil">P</div>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <header class="content-header">
+        <h1>Como podemos ajudar hoje?</h1>
+      </header>
+
+      <section class="cards-grid">
+        <a href="#consultas" class="card">
+          <span class="card-title">Consultas</span>
+          <div class="card-icon square-icon">
+            <i class="fa-solid fa-book-medical"></i>
+          </div>
+        </a>
+
+        <a href="#arquivos" class="card">
+          <span class="card-title">Arquivos</span>
+          <div class="card-icon square-icon">
+            <i class="fa-regular fa-file-lines"></i>
+          </div>
+        </a>
+
+        <a href="#resultados" class="card">
+          <span class="card-title">Últimos Resultados</span>
+          <div class="card-icon square-icon">
+            <i class="fa-solid fa-file-medical"></i>
+          </div>
+        </a>
+
+        <a href="#nota-fiscal" class="card">
+          <span class="card-title">Nota Fiscal</span>
+          <div class="card-icon square-icon">
+            <i class="fa-solid fa-file-invoice-dollar"></i>
+          </div>
+        </a>
+      </section>
+
+      <footer class="quote-footer">
+        <p>"Uma boa saúde é a chave para uma vida plena e feliz."</p>
+      </footer>
+    </main>
+
+  </div>
+
+</body>
+</html>

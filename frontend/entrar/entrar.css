@@ -1,0 +1,165 @@
+/* --- ZERANDO ESTILOS BASE --- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-green: #8ee060;
+  --primary-green-hover: #7cd14e;
+  --dark-blue: #115982;
+  --light-blue: #2299b8;
+  --text-color: #115982;
+  --bg-color: #ffffff;
+}
+
+body {
+  font-family: 'Montserrat', sans-serif;
+  background-color: var(--bg-color);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* --- CONTAINER PRINCIPAL --- */
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  z-index: 10;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+}
+
+/* --- LOGO --- */
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.logo-icon {
+  width: 300px;
+  height: 250px;
+  margin-bottom: 10px;
+}
+
+.brand-title {
+  font-size: 2.2rem;
+  font-weight: 600;
+  color: var(--primary-green-hover);
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.brand-bold {
+  font-weight: 800;
+  color: var(--dark-blue);
+}
+
+.brand-subtitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--dark-blue);
+  margin-top: 4px;
+  opacity: 0.9;
+}
+
+/* --- TÍTULO BEM VINDO --- */
+.welcome-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: var(--dark-blue);
+  margin-bottom: 35px;
+}
+
+/* --- BOTÕES --- */
+.buttons-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+  padding: 14px 24px;
+  background-color: var(--primary-green);
+  color: #ffffff;
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-decoration: none;
+  border-radius: 50px;
+  box-shadow: 0 4px 10px rgba(142, 224, 96, 0.3);
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background-color: var(--primary-green-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(142, 224, 96, 0.4);
+}
+
+.btn-arrow {
+  position: absolute;
+  right: 20px;
+  width: 24px;
+  height: 24px;
+  stroke: #ffffff;
+  stroke-width: 3;
+}
+
+/* --- FORMAS ORGANICAS DO FUNDO --- */
+.bg-shape {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.shape-top-left {
+  width: 350px;
+  height: 350px;
+  background: radial-gradient(circle, rgba(142,224,96,0.8) 0%, rgba(17,89,130,0.9) 100%);
+  top: -150px;
+  left: -150px;
+  border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+}
+
+.shape-top-right {
+  width: 300px;
+  height: 300px;
+  background: var(--dark-blue);
+  top: -120px;
+  right: -80px;
+  border-radius: 50% 50% 30% 70% / 50% 30% 70% 50%;
+}
+
+.shape-bottom-left {
+  width: 400px;
+  height: 400px;
+  background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-blue) 100%);
+  bottom: -180px;
+  left: -120px;
+  border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+}
+
+.shape-bottom-right {
+  width: 300px;
+  height: 200px;
+  background: var(--dark-blue);
+  bottom: -100px;
+  right: -50px;
+  border-radius: 50% 50% 0 0;
+  transform: rotate(-15deg);
+}

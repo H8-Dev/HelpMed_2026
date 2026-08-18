@@ -1,0 +1,2 @@
+Criar uma drop box com todas as siglas dos estados do brazil
+para adicionar ao final do CRM na hora do cadastro

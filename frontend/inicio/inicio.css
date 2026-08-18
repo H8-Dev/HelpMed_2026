@@ -1,0 +1,297 @@
+/* ==========================================
+   VARIÁVEIS E CONFIGURAÇÕES GERAIS
+   ========================================== */
+   :root {
+    --primary-blue: #1c5270;
+    --bg-light: #f3f8f5;
+    --card-bg: #ffffff;
+    --card-shadow: rgba(0, 0, 0, 0.05);
+    --card-shadow-hover: rgba(28, 82, 112, 0.15);
+    --text-primary: #1c5270;
+    --text-quote: #2b6a8f;
+    --accent-green: #67c265;
+    --border-color: #d1d5db;
+    --font-family: 'Montserrat', sans-serif;
+  }
+  
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: var(--font-family);
+    background-color: var(--bg-light);
+    color: var(--text-primary);
+    min-height: 100vh;
+    position: relative;
+    overflow-x: hidden;
+  }
+  
+  /* ==========================================
+     FUNDO DECORATIVO (IMAGEM + ONDA VERDE)
+     ========================================== */
+  .bg-shape {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* Mescla a imagem background.png com o degradê verde radial original */
+    background: 
+      radial-gradient(circle at bottom right, rgba(103,194,101,0.2) 0%, rgba(243,248,245,0.4) 70%),
+      url('/frontend/helpmed-login/assets/background.png') no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+    pointer-events: none;
+  }
+  
+  /* ==========================================
+     LAYOUT PRINCIPAL
+     ========================================== */
+  .dashboard-layout {
+    display: flex;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+  
+  /* ==========================================
+     SIDEBAR (NAVEGAÇÃO LATERAL)
+     ========================================== */
+  .sidebar {
+    width: 80px;
+    background-color: var(--card-bg); /* Fundo branco sólido para contraste sobre a imagem */
+    border-right: 2px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+  }
+  
+  .sidebar-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    width: 100%;
+  }
+  
+  .brand-logo {
+    font-size: 2rem;
+    color: var(--primary-blue);
+    text-decoration: none;
+    transition: transform 0.2s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .brand-logo img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .brand-logo:hover {
+    transform: scale(1.05);
+  }
+  
+  .sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .nav-item {
+    background: none;
+    border: none;
+    font-size: 1.6rem;
+    color: var(--primary-blue);
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 12px;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+  }
+  
+  .nav-item:hover,
+  .nav-item.active {
+    opacity: 1;
+    background-color: rgba(28, 82, 112, 0.08);
+  }
+  
+  .sidebar-bottom {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .user-avatar {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    background-color: #9ca3af;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+  }
+  
+  /* ==========================================
+     CONTEÚDO DA PÁGINA
+     ========================================== */
+  .main-content {
+    flex: 1;
+    padding: 3rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  
+  .content-header h1 {
+    font-size: 2.2rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+    margin-bottom: 2.5rem;
+  }
+  
+  /* ==========================================
+     GRADE DE CARDS E ÍCONES QUADRADOS
+     ========================================== */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(220px, 280px));
+    gap: 2rem;
+    margin-bottom: 2rem;
+  }
+  
+  .card {
+    background-color: var(--card-bg);
+    border: 1px solid rgba(0, 0, 0, 0.08);
+    border-radius: 24px;
+    padding: 2rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    text-decoration: none;
+    color: var(--text-primary);
+    box-shadow: 0 10px 25px var(--card-shadow);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    min-height: 220px;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  /* Container do Ícone - Configurado para ser Quadrado Perfeito */
+  .square-icon {
+    width: 75px;
+    height: 75px;
+    font-size: 2.3rem; /* Tamanho do ícone interno ajustado proporcionalmente */
+    color: var(--primary-blue);
+    background-color: rgba(28, 82, 112, 0.06); /* Fundo sutil para destacar o quadrado */
+    border-radius: 16px; /* Cantos levemente arredondados no contorno quadrado */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  /* Efeito Hover nos Cards */
+  .card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 14px 30px var(--card-shadow-hover);
+    border-color: rgba(28, 82, 112, 0.2);
+  }
+  
+  .card:hover .square-icon {
+    transform: scale(1.05);
+    background-color: rgba(28, 82, 112, 0.12);
+    color: var(--primary-blue);
+  }
+  
+  /* ==========================================
+     RODAPÉ (CITAÇÃO)
+     ========================================== */
+  .quote-footer {
+    text-align: right;
+    margin-top: auto;
+    padding-top: 2rem;
+  }
+  
+  .quote-footer p {
+    font-size: 1.15rem;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--text-quote);
+  }
+  
+  /* ==========================================
+     RESPONSIVIDADE (MOBILE / TABLET)
+     ========================================== */
+  @media (max-width: 768px) {
+    .dashboard-layout {
+      flex-direction: column;
+    }
+  
+    .sidebar {
+      width: 100%;
+      height: 70px;
+      flex-direction: row;
+      padding: 0 1.5rem;
+      border-right: none;
+      border-bottom: 2px solid var(--border-color);
+    }
+  
+    .sidebar-top {
+      flex-direction: row;
+      gap: 1.5rem;
+      width: auto;
+      height: 100%;
+    }
+  
+    .brand-logo img {
+      width: 90px;
+      height: auto;
+    }
+  
+    .sidebar-nav {
+      flex-direction: row;
+      height: 100%;
+    }
+  
+    .sidebar-bottom {
+      width: auto;
+    }
+  
+    .main-content {
+      padding: 2rem 1.5rem;
+    }
+  
+    .cards-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+  
+    .quote-footer {
+      text-align: center;
+      margin-top: 2rem;
+    }
+  }
