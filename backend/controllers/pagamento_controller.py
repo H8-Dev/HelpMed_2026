@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, url_for, redirect, Blueprint #type: ignore
+from flask import jsonify, request, Blueprint #type: ignore
 
 from models.database import db
 
