@@ -11,15 +11,15 @@ const campoFormacao = document.querySelector("#formacao");
 function formatarCRM() {
     var campoCRM = document.getElementById("crm").value;
     if(campoCRM[6]!="/"){
-        if(campoCRM[10]!= undefined){
-            document.getElementById("crm").value=campoCRM.slice(0,10)+"/"+campoCRM[10]
+        if(campoCRM[6]!= undefined){
+            document.getElementById("crm").value=campoCRM.slice(0,6)+"/"+campoCRM[6]
         }}
     if(campoCRM[7]!="B"){
-        if(campoCRM[11]!= undefined){
-            document.getElementById("crm").value=campoCRM.slice(0,11)+"B"+campoCRM[11]
+        if(campoCRM[7]!= undefined){
+            document.getElementById("crm").value=campoCRM.slice(0,11)+"B"+campoCRM[7]
         }}
     if(campoCRM[8]!="R"){
-        if(campoCRM[12]!= undefined){
-            document.getElementById("crm").value=campoCRM.slice(0,12)+"R"+campoCRM[12]
+        if(campoCRM[8]!= undefined){
+            document.getElementById("crm").value=campoCRM.slice(0,12)+"R"+campoCRM[8]
         }}
 }
