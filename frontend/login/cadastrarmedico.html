@@ -6,7 +6,7 @@
   <title>HelpMed | Login</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="icon" type="image/png" href="../assets/logo_icon.png">
+  <link rel="icon" type="image/png" href="/assets/logo_icon.png">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="cadastrarcliente.css" />
   <script src="med_cadastro.js" defer></script>
@@ -15,7 +15,7 @@
   <main class="login-page" aria-label="Tela de login HelpMed">
     <section class="login-card" aria-labelledby="login-title">
       <header class="brand">
-        <img class="brand__logo" src="../assets/logo.png" alt="HelpMed" />
+        <img class="brand__logo" src="/assets/logo.png" alt="HelpMed" />
         <p class="brand__tagline">Ajudando você com tecnologia</p>
       </header>
 
@@ -28,7 +28,7 @@
         <p>Informe seu CRM e senha para continuar</p>
       </div>
 
-      <form class="login-form" id="form-medico" action="../inicio/inicio.html" method="post">
+      <form class="login-form" id="form-medico" action="/inicio/inicio.html" method="post">
         <div class="field-group">
           <label for="crm">CRM</label>
           <div class="input-wrap">
@@ -39,11 +39,10 @@
               id="crm"
               name="crm"
               type="text"
-              inputmode="numeric"
               oninput="formatarCRM()"
-              maxlength="15"
+              maxlength="9"
               autocomplete="med_id"
-              placeholder="000.000.000-00"
+              placeholder="000000/BR"
               aria-describedby="crm-help"
             />
           </div>
