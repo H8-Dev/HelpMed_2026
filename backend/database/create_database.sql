@@ -1,5 +1,3 @@
--- OUTDATED
-
 create database if not exists helpmed;
 use helpmed;
 
