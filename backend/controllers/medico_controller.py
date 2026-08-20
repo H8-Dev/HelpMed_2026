@@ -1,4 +1,5 @@
 from flask import jsonify, request, Blueprint #type: ignore
+from sqlalchemy.exc import SQLAlchemyError #type: ignore
 
 from models.database import db
 
@@ -13,14 +14,15 @@ class MedicoController:
     @med_controller.post('/cadastrar')
     def cadastrar_medico():
         try:
+            body = request.get_json(silent=True) or request.form
             dados = {
-                "crm": str(request.form['crm']),
-                "cpf": str(request.form['cpf']),
-                "senha": str(request.form['senha']),
-                "nome": str(request.form['nome']),
-                "sobrenome": str(request.form['sobrenome']),
-                "email": str(request.form['email']),
-                "formacao": str(request.form['formacao'])
+                "crm": str(body['crm']),
+                "cpf": str(body['cpf']),
+                "senha": str(body['senha']),
+                "nome": str(body['nome']),
+                "sobrenome": str(body['sobrenome']),
+                "email": str(body['email']),
+                "formacao": str(body['formacao'])
             }
 
             service = CriarMedicoService()
@@ -31,7 +33,7 @@ class MedicoController:
         except ValueError as error:
             return jsonify({"error": str(error)}), 400
 
-        except SQLAlchemyError: #type: ignore
+        except SQLAlchemyError:
             db.session.rollback()
             return jsonify({"error": "Erro ao cadastrar médico."}), 500
 

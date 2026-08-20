@@ -20,6 +20,9 @@ def create_app():
 
     db.init_app(app)
 
+    with app.app_context():
+        db.create_all()
+
     app.register_blueprint(med_controller)
     app.register_blueprint(pac_controller)
     app.register_blueprint(atend_controller)
