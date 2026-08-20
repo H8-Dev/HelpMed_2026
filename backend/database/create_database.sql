@@ -11,12 +11,13 @@ data_create timestamp default current_timestamp not null
 ) engine = InnoDB;
 
 create table medicos(
-CRM varchar(15) primary key not null,
+CRM varchar(9) primary key not null,
 CPF varchar(14) not null,
 senha varchar(50) not null,
 nome varchar(50) not null,
-sobrenome varchar(80) not null,
+sobrenome varchar(50) not null,
 email varchar(120) not null unique,
+formacao varchar(100) not null,
 data_create timestamp default current_timestamp not null
 ) engine = InnoDB;
 
@@ -30,11 +31,15 @@ create table arquivos(
 arq_id int primary key not null,
 type varchar(20) not null,
 url varchar(2083) not null,
+foreign key (pac_id) references pacientes(CPF) not null,
+foreign key (med_id) references medicos(CRM) not null,
 last_update timestamp default current_timestamp not null
 ) engine = InnoDB;
 
 create table pagamentos(
 pag_id int primary key not null,
 total decimal(10,2) not null,
+foreign key (pac_id) references pacientes(CPF) not null,
+foreign key (med_id) references medicos(CRM) not null,
 data_hora timestamp default current_timestamp not null
 ) engine = InnoDB;

@@ -1,6 +1,9 @@
-from flask import Flask, jsonify, render_template, request, url_for, redirect, Blueprint #type: ignore
+from flask import jsonify, request, Blueprint #type: ignore
 
 from models.database import db
 
 
 pag_controller = Blueprint("pag_controller", __name__)
+
+class PagamentoController:
+    pass

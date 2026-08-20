@@ -19,8 +19,8 @@ class CriarPacienteService:
             nome =  dados["nome"],
             sobrenome =  dados["sobrenome"],
             email =  dados["email"],
-            data_create = datetime.now().timestamp()
+            data_create = datetime.now()
         )
 
         paciente.salvar()
-        return
+        return paciente.to_dict()

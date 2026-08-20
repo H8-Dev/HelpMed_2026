@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelpMed | Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" type="image/png" href="/assets/logo_icon.png">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="login.css" />
+  <script src="login_pac.js" defer></script>
+</head>
+<body>
+  <main class="login-page" aria-label="Tela de login HelpMed">
+    <section class="login-card" aria-labelledby="login-title">
+      <header class="brand">
+        <img class="brand__logo" src="/assets/logo.png" alt="HelpMed" />
+        <p class="brand__tagline">Ajudando você com tecnologia</p>
+      </header>
+
+      <div class="divider" aria-hidden="true">
+        <span></span>
+      </div>
+
+      <div class="login-heading">
+        <h1 id="login-title">Acesse sua conta</h1>
+        <p>Informe seu CPF e senha para continuar</p>
+      </div>
+
+      <form class="login-form" id="form-cliente" action="/home/home.html" method="post">
+        <div class="field-group">
+          <label for="cpf">CPF</label>
+          <div class="input-wrap">
+            <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4Zm0 2c-2.67 0-8 1.34-8 4v1.2c0 .44.36.8.8.8h14.4c.44 0 .8-.36.8-.8V18c0-2.66-5.33-4-8-4Z" />
+            </svg>
+            <input
+              id="cpf"
+              name="cpf"
+              type="text"
+              inputmode="numeric"
+              oninput="formatarCPF()"
+              maxlength="14"
+              autocomplete="pac_id"
+              placeholder="000.000.000-00"
+              aria-describedby="cpf-help"
+            />
+          </div>
+          <small id="cpf-help" class="sr-only">Digite seu número de CPF.</small>
+        </div>
+
+        <div class="field-group">
+          <label for="senha">Senha</label>
+          <div class="input-wrap input-wrap--password">
+            <svg class="input-icon" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17 9h-1V7c0-2.21-1.79-4-4-4S8 4.79 8 7v2H7c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h10c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2Zm-7-2c0-1.1.9-2 2-2s2 .9 2 2v2h-4V7Zm3 8.73V18h-2v-2.27c-.6-.35-1-.99-1-1.73 0-1.1.9-2 2-2s2 .9 2 2c0 .74-.4 1.38-1 1.73Z" />
+            </svg>
+            <input
+              id="senha"
+              name="senha"
+              type="password"
+              autocomplete="current-password"
+              placeholder="••••••••"
+            />
+            <button class="eye-button" type="button" aria-label="Mostrar senha">
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 5c5.08 0 8.55 4.11 9.74 5.75.35.48.35 1.12 0 1.6C20.55 13.99 17.08 18.1 12 18.1S3.45 13.99 2.26 12.35a1.35 1.35 0 0 1 0-1.6C3.45 9.11 6.92 5 12 5Zm0 2C7.87 7 4.94 10.13 3.98 11.55 4.94 12.97 7.87 16.1 12 16.1s7.06-3.13 8.02-4.55C19.06 10.13 16.13 7 12 7Zm0 1.8a2.75 2.75 0 1 1 0 5.5 2.75 2.75 0 0 1 0-5.5Zm0 1.8a.95.95 0 1 0 0 1.9.95.95 0 0 0 0-1.9Z" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <button class="submit-button" type="submit">
+          <span>Entrar</span>
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M13.2 5.3a1 1 0 0 1 1.4 0l5.9 5.9a1 1 0 0 1 0 1.4l-5.9 5.9a1 1 0 0 1-1.4-1.4l4.2-4.2H4.5a1 1 0 1 1 0-2h12.9l-4.2-4.2a1 1 0 0 1 0-1.4Z" />
+          </svg>
+        </button>
+      </form>
+
+      <footer class="login-footer">
+        <a href="#">Esqueceu sua senha?</a>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>

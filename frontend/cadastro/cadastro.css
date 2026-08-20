@@ -1,0 +1,313 @@
+/* --- ZERANDO ESTILOS BASE --- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --primary-green: #8ee060;
+    --primary-green-hover: #7cd14e;
+    --dark-blue: #115982;
+    --light-blue: #2299b8;
+    --input-bg: #f8fafc;
+    --border-color: #cbd5e1;
+    --text-dark: #1e293b;
+    --text-muted: #64748b;
+    --bg-color: #ffffff;
+  }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--bg-color);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    overflow-x: hidden;
+    padding: 40px 20px;
+  }
+  
+  /* --- LOGO CANTO SUPERIOR ESQUERDO (Wireframe) --- */
+  .header-logo {
+    position: absolute;
+    top: 25px;
+    left: 30px;
+    z-index: 20;
+  }
+  
+  .logo-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-decoration: none;
+  }
+  
+  .logo-icon {
+    width: 45px;
+    height: 45px;
+  }
+  
+  .logo-text {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--primary-green-hover);
+  }
+  
+  .logo-text span {
+    font-weight: 800;
+    color: var(--dark-blue);
+  }
+  
+  /* --- CARD DO FORMULÁRIO (Gestalt: Figura / Fundo & Região Comum) --- */
+  .form-card {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 580px;
+    padding: 40px 45px;
+    border-radius: 24px;
+    box-shadow: 0 15px 35px rgba(17, 89, 130, 0.08);
+    border: 1px solid rgba(17, 89, 130, 0.08);
+    z-index: 10;
+    position: relative;
+  }
+  
+  /* --- CABEÇALHO DO FORMULÁRIO --- */
+  .form-header {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+  
+  .form-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--dark-blue);
+    margin-bottom: 6px;
+  }
+  
+  .form-subtitle {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+  
+  /* --- ESTRUTURA DO FORMULÁRIO --- */
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+  
+  /* Gestalt: Proximidade (Agrupamento Nome + Sobrenome) */
+  .input-row {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .input-row .input-group {
+    flex: 1;
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    text-align: left;
+  }
+  
+  .input-group label {
+    font-size: 0.88rem;
+    font-weight: 700;
+    color: var(--dark-blue);
+  }
+  
+  /* Gestalt: Semelhança (Estilo Padronizado inspirado nos inputs arredondados do Wireframe) */
+  .input-group input {
+    width: 100%;
+    padding: 12px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background-color: var(--input-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50px; /* Mantendo os cantos bastante arredondados do wireframe */
+    outline: none;
+    transition: all 0.25s ease;
+  }
+  
+  .input-group input::placeholder {
+    color: #a0aec0;
+    font-size: 0.9rem;
+  }
+  
+  /* Interatividade e Feedback Visual */
+  .input-group input:focus {
+    border-color: var(--light-blue);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(34, 153, 184, 0.15);
+  }
+  
+  /* --- BOTÃO E RODAPÉ (Gestalt: Continuidade Visual) --- */
+  .form-footer {
+    margin-top: 10px;
+  }
+  
+  .btn-submit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100%;
+    padding: 14px 24px;
+    background-color: var(--primary-green);
+    color: #ffffff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(142, 224, 96, 0.35);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-submit:hover {
+    background-color: var(--primary-green-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(142, 224, 96, 0.45);
+  }
+  
+  .btn-arrow {
+    position: absolute;
+    right: 20px;
+    width: 22px;
+    height: 22px;
+    stroke: #ffffff;
+  }
+  
+  .login-link {
+    text-align: center;
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin-top: 5px;
+    font-weight: 500;
+  }
+  
+  .login-link a {
+    color: var(--dark-blue);
+    font-weight: 700;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  
+  .login-link a:hover {
+    color: var(--light-blue);
+    text-decoration: underline;
+  }
+  
+  /* --- FORMAS ORGANICAS DO FUNDO (Consistência Visual) --- */
+  .bg-shape {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  
+  .shape-top-left {
+    width: 320px;
+    height: 320px;
+    background: radial-gradient(circle, rgba(142,224,96,0.7) 0%, rgba(17,89,130,0.85) 100%);
+    top: -140px;
+    left: -120px;
+    border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+  }
+  
+  .shape-top-right {
+    width: 280px;
+    height: 280px;
+    background: var(--dark-blue);
+    top: -100px;
+    right: -80px;
+    border-radius: 50% 50% 30% 70% / 50% 30% 70% 50%;
+  }
+  
+  .shape-bottom-left {
+    width: 380px;
+    height: 380px;
+    background: linear-gradient(135deg, var(--primary-green) 0%, var(--dark-blue) 100%);
+    bottom: -160px;
+    left: -140px;
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+  }
+  
+  .shape-bottom-right {
+    width: 260px;
+    height: 180px;
+    background: var(--dark-blue);
+    bottom: -80px;
+    right: -40px;
+    border-radius: 50% 50% 0 0;
+    transform: rotate(-15deg);
+  }
+  
+  /* --- RESPONSIVIDADE --- */
+  @media (max-width: 600px) {
+    body {
+      padding: 80px 15px 30px 15px;
+    }
+  
+    .header-logo {
+      top: 15px;
+      left: 20px;
+    }
+  
+    .form-card {
+      padding: 30px 20px;
+    }
+  
+    .input-row {
+      flex-direction: column;
+      gap: 18px;
+    }
+  }
+
+  /* --- ESTILOS COMPLEMENTARES PARA O SELECT (CADASTRO MÉDICO) --- */
+.input-group select {
+    width: 100%;
+    padding: 12px 20px;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text-dark);
+    background-color: var(--input-bg);
+    border: 2px solid var(--border-color);
+    border-radius: 50px;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    appearance: none; /* Remove a seta padrão do navegador */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+  }
+  
+  /* Seta customizada dentro do select */
+  .select-wrapper {
+    position: relative;
+    width: 100%;
+  }
+  
+  .select-wrapper::after {
+    content: '▼';
+    font-size: 0.7rem;
+    color: var(--dark-blue);
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+  
+  .input-group select:focus {
+    border-color: var(--light-blue);
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(34, 153, 184, 0.15);
+  }
