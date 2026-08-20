@@ -1,9 +1,13 @@
-const API_URL = "http://127.0.0.1:5000/buscar";
+const API_URL = "http://127.0.0.1:5000/cadastrar";
 
 const form = document.querySelector("#form-medico");
 const medId = document.querySelector("#crm")
 const campoCPF = document.querySelector("#cpf");
 const campoSenha = document.querySelector("#senha");
+const campoNome = document.querySelector("#nome");
+const campoSobrenome = document.querySelector("#sobrenome");
+const campoEmail = document.querySelector("#email");
+const campoFormacao = document.querySelector("#formacao");
 
 
 function formatarCRM() {
@@ -22,26 +26,27 @@ function formatarCRM() {
         }}
 }
 
-//VV Testes VV{
-async function buscarMedico(){
+async function cadastrarMedico() {
 
-    try{
-        const response = await fetch(`${API_URL}/${medId.value}`, {
-            method: "GET",
+    const dados = {
+        crm: medId.value,
+        cpf: campoCPF.value,
+        senha: campoSenha.value,
+        nome: campoNome.value,
+        sobrenome: campoSobrenome.value,
+        email: campoEmail.value,
+        formacao: campoFormacao.value
+    };
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify(dados)
         });
-        const dados = await response.json();
-
-        if (!response.ok) {
-            showMessage(dados.error || "Médico não está cadastrado.", "error");
-            return;
-        }
-
-    }catch (error) {
+    } catch (error) {
         console.error("Erro de conexão com a API:", "error");
     }
-
 }
-//} ^^ Testes ^^

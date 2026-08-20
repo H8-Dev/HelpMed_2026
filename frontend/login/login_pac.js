@@ -1,9 +1,9 @@
+const API_URL = "http://127.0.0.1:5000/buscar";
+
+
 const form = document.querySelector(".login-form");
 const pacId = document.querySelector("#cpf")
 const campoSenha = document.querySelector("#senha");
-const campoNome = document.querySelector("#nome");
-const campoSobrenome = document.querySelector("#sobrenome");
-const campoEmail = document.querySelector("#email");
 
 function formatarCPF() {
     var campoCPF = document.getElementById("cpf").value;
