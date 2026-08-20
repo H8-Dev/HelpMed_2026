@@ -16,10 +16,10 @@ function formatarCRM() {
         }}
     if(campoCRM[7]!="B"){
         if(campoCRM[7]!= undefined){
-            document.getElementById("crm").value=campoCRM.slice(0,11)+"B"+campoCRM[7]
+            document.getElementById("crm").value=campoCRM.slice(0,7)+"B"+campoCRM[7]
         }}
     if(campoCRM[8]!="R"){
         if(campoCRM[8]!= undefined){
-            document.getElementById("crm").value=campoCRM.slice(0,12)+"R"+campoCRM[8]
+            document.getElementById("crm").value=campoCRM.slice(0,8)+"R"+campoCRM[8]
         }}
 }
