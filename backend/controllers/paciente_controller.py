@@ -11,7 +11,7 @@ pac_controller = Blueprint("pac_controller", __name__)
 
 class PacienteController:
 
-    @pac_controller.post('/cadastrar')
+    @pac_controller.post('/pacientes/cadastrar')
     def cadastrar_paciente():
         try:
             body = request.get_json(silent=True) or request.form
@@ -34,7 +34,7 @@ class PacienteController:
             db.session.rollback()
             return jsonify({"error": "Erro ao cadastrar paciente."}), 500
 
-    @pac_controller.get('/buscar/<string:paciente_cpf>')
+    @pac_controller.get('/pacientes/buscar/<string:paciente_cpf>')
     def buscar_paciente_por_cpf(paciente_cpf):
 
         service = BuscarPacCpfService()

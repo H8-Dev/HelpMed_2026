@@ -39,10 +39,6 @@ class Medico(db.Model):
     def buscar_crm(crm):
         return Medico.query.filter_by(crm=crm).first()
     
-    @staticmethod
-    def buscar_formacao(formacao):
-        return Medico.query.filter_by(formacao=formacao).all()
-
     def to_dict(self):
         return {
             "crm": self.crm,

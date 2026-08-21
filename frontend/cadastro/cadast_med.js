@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000/cadastrar";
+const API_URL = "http://127.0.0.1:5000/medicos/cadastrar";
 
 const form = document.querySelector("#form-medico");
 const medId = document.querySelector("#crm")

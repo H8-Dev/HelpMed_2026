@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelpMed - APM com Modal</title>
+  <link rel="stylesheet" href="apm-modal.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- BARRA LATERAL (SIDEBAR) -->
+  <aside class="sidebar">
+    <div class="sidebar-top">
+      <a href="#" class="sidebar-logo">
+        <svg viewBox="0 0 200 200" fill="none">
+          <circle cx="100" cy="100" r="75" stroke="#72d164" stroke-width="16" stroke-dasharray="360 80"/>
+          <rect x="50" y="55" width="70" height="70" rx="15" fill="#25a2b8" />
+          <path d="M85 73 V107 M68 90 H102" stroke="white" stroke-width="10" stroke-linecap="round" />
+        </svg>
+      </a>
+
+      <nav class="sidebar-menu">
+        <a href="#" class="nav-item" title="Mensagens">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </a>
+        <a href="#" class="nav-item" title="Prontuários">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        </a>
+        <a href="#" class="nav-item" title="Agenda">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+        </a>
+        <a href="#" class="nav-item active" title="APM">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a10 10 0 1 0 10 10H12V2z"></path><path d="M12 12L2.5 7.5"></path><path d="M12 12v10"></path></svg>
+        </a>
+      </nav>
+    </div>
+
+    <div class="sidebar-bottom">
+      <div class="user-avatar" title="Perfil">M</div>
+    </div>
+  </aside>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="app-container">
+    
+    <!-- BARRA SUPERIOR -->
+    <header class="top-bar">
+      <div class="file-info">
+        <span class="file-name">HelpMed - APM</span>
+      </div>
+      <div class="top-actions">
+        <button class="action-btn" title="Editar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg></button>
+        <button class="action-btn" title="Buscar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg></button>
+        <button class="action-btn" title="Pasta"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg></button>
+        <button class="action-btn" title="Mais"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
+      </div>
+    </header>
+
+    <main class="main-layout">
+      
+      <!-- ÁREA DE CONTEÚDO (CARDS + BOTÃO INFERIOR) -->
+      <section class="content-area">
+        
+        <!-- CARDS DE ARQUIVOS -->
+        <div class="cards-row">
+          <div class="file-card"></div>
+          <div class="file-card"></div>
+          <div class="file-card"></div>
+          <button class="add-card-btn" title="Adicionar Novo">+</button>
+        </div>
+
+        <!-- BOTÃO NA PARTE INFERIOR PARA ABRIR A JANELA -->
+        <div class="bottom-action-container">
+          <button class="open-modal-btn" onclick="toggleModal(true)">
+            Compartilhar Arquivos
+          </button>
+        </div>
+
+      </section>
+
+      <!-- PAINEL LATERAL DIREITO COM ÍCONES -->
+      <aside class="right-menu">
+        <button class="menu-icon-btn" title="Lista"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"></line><line x1="8" y1="12" x2="21" y2="12"></line><line x1="8" y1="18" x2="21" y2="18"></line><line x1="3" y1="6" x2="3.01" y2="6"></line><line x1="3" y1="12" x2="3.01" y2="12"></line><line x1="3" y1="18" x2="3.01" y2="18"></line></svg></button>
+        <button class="menu-icon-btn" title="Adicionar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg></button>
+        <button class="menu-icon-btn" title="Estatísticas"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg></button>
+      </aside>
+
+    </main>
+
+  </div>
+
+  <!-- JANELA POP-UP (MODAL) -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal-card">
+      
+      <!-- BOTÃO PARA FECHAR A JANELA -->
+      <button class="close-modal-btn" onclick="toggleModal(false)" title="Fechar">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="15" y1="9" x2="9" y2="15"></line>
+          <line x1="9" y1="9" x2="15" y2="15"></line>
+        </svg>
+      </button>
+
+      <!-- CONTEÚDO DO MODAL -->
+      <div class="modal-body">
+        <div class="modal-preview-box">
+          <div class="preview-layout"></div>
+          <div class="preview-add">+</div>
+        </div>
+
+        <p class="modal-title">4 Arquivos Selecionados!</p>
+        <p class="modal-subtitle">Para onde deseja compartilhá-los?</p>
+
+        <!-- OPÇÕES DE COMPARTILHAMENTO -->
+        <div class="options-grid">
+          <button class="option-pill">Op1</button>
+          <button class="option-pill">Op2</button>
+          <button class="option-pill">Op3</button>
+          <button class="option-pill">Op4</button>
+          <button class="option-pill">Op5</button>
+          <button class="option-pill">Op6</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SCRIPT PARA ABRIR/FECHAR -->
+  <script>
+    function toggleModal(show) {
+      const modal = document.getElementById('modalOverlay');
+      if (show) {
+        modal.classList.add('active');
+      } else {
+        modal.classList.remove('active');
+      }
+    }
+  </script>
+
+</body>
+</html>

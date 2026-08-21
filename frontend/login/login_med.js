@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000/buscar";
+const API_URL = "http://127.0.0.1:5000/medicos/buscar";
 
 const form = document.querySelector("#form-medico");
 const medId = document.querySelector("#crm")

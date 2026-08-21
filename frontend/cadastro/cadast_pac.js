@@ -1,4 +1,4 @@
-const API_URL = "http://127.0.0.1:5000/cadastrar";
+const API_URL = "http://127.0.0.1:5000/pacientes/cadastrar";
 
 const form = document.querySelector(".login-form");
 const pacId = document.querySelector("#cpf")
