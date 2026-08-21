@@ -1,0 +1,233 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  :root {
+    --primary-green: #8ee060;
+    --dark-blue: #115982;
+    --light-bg: #e8eee7;
+    --border-color: #333333;
+    --text-dark: #333333;
+  }
+  
+  body {
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--light-bg);
+    min-height: 100vh;
+    display: flex;
+  }
+  
+  /* --- BARRA LATERAL --- */
+  .sidebar {
+    width: 65px;
+    background-color: #e5ebe4;
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 0;
+    z-index: 20;
+  }
+  
+  .sidebar-top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  .sidebar-logo {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+    align-items: center;
+  }
+  
+  .nav-item {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--dark-blue);
+    text-decoration: none;
+    transition: all 0.2s ease;
+  }
+  
+  .nav-item svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .nav-item:hover, .nav-item.active {
+    background-color: #ffffff;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  }
+  
+  .user-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #999999;
+    color: #ffffff;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+  
+  /* --- CONTAINER PRINCIPAL --- */
+  .app-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* --- BARRA SUPERIOR DE AÇÕES --- */
+  .top-bar {
+    height: 45px;
+    border-bottom: 1px solid var(--border-color);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 15px;
+    background-color: var(--light-bg);
+  }
+  
+  .file-name {
+    font-size: 0.9rem;
+    color: var(--text-dark);
+  }
+  
+  .top-actions {
+    display: flex;
+    gap: 10px;
+  }
+  
+  .action-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px;
+  }
+  
+  .action-btn svg {
+    width: 18px;
+    height: 18px;
+    stroke: var(--text-dark);
+  }
+  
+  /* --- LAYOUT CENTRAL --- */
+  .main-layout {
+    flex: 1;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+  }
+  
+  /* FICHA DO EXAME */
+  .exam-card {
+    width: 100%;
+    max-width: 850px;
+    background-color: #ffffff;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 25px 30px;
+    min-height: 450px;
+  }
+  
+  .card-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 25px;
+  }
+  
+  .form-section {
+    margin-bottom: 35px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .section-label {
+    font-size: 0.85rem;
+    color: #555555;
+    font-weight: 500;
+  }
+  
+  .input-line {
+    width: 220px;
+    padding: 8px 14px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    outline: none;
+    background-color: #fafafa;
+  }
+  
+  .input-line:focus {
+    border-color: var(--dark-blue);
+    background-color: #ffffff;
+  }
+  
+  /* PILLS / TAGS ARREDONDADAS (Gestalt: Semelhança e Região Comum) */
+  .tags-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 5px;
+  }
+  
+  .tag-pill {
+    padding: 8px 22px;
+    border: 1px solid var(--border-color);
+    border-radius: 50px;
+    background-color: #ffffff;
+    color: var(--text-dark);
+    font-family: inherit;
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .tag-pill:hover {
+    border-color: var(--dark-blue);
+    background-color: #f0f4f8;
+  }
+  
+  .tag-pill.active {
+    background-color: #ffffff;
+    border-color: var(--border-color);
+    box-shadow: inset 0 0 0 1px var(--border-color);
+  }
+  
+  /* RESPONSIVIDADE */
+  @media (max-width: 600px) {
+    .exam-card {
+      padding: 18px;
+    }
+  
+    .tag-pill {
+      padding: 6px 16px;
+      font-size: 0.8rem;
+    }
+  }

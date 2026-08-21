@@ -1,8 +1,8 @@
-from models.medico_model import Medico
+from repositories.medicos_repository import MedicosRepository
 
 class BuscarMedicoPorFormacaoService:
     def executar(self, formacao):
-        medicos = Medico.buscar_formacao(formacao)
+        medicos = MedicosRepository.buscar_formacao(formacao)
 
         if not medicos:
             return None

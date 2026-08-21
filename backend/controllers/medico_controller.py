@@ -1,4 +1,4 @@
-from flask import Flask, jsonify, render_template, request, url_for, redirect, Blueprint #type: ignore
+from flask import jsonify, request, Blueprint #type: ignore
 from sqlalchemy.exc import SQLAlchemyError #type: ignore
 
 from models.database import db
@@ -11,7 +11,7 @@ med_controller = Blueprint("med_controller", __name__)
 
 class MedicoController:
     
-    @med_controller.post('/cadastrar')
+    @med_controller.post('/medicos/cadastrar')
     def cadastrar_medico():
         try:
             body = request.get_json(silent=True) or request.form
@@ -38,7 +38,7 @@ class MedicoController:
             return jsonify({"error": "Erro ao cadastrar médico."}), 500
 
 
-    @med_controller.get('/buscar/<string:medico_crm>')
+    @med_controller.get('/medicos/buscar/<string:medico_crm>')
     def buscar_medico_por_crm(medico_crm):
 
         service = BuscarMedicoPorCRMService()
@@ -49,7 +49,7 @@ class MedicoController:
 
         return jsonify(medico), 200
 
-    @med_controller.get('/buscar/<string:formacao>')
+    @med_controller.get('/medicos/buscar/<string:formacao>')
     def buscar_medico_por_formacao(formacao):
 
         service = BuscarMedicoPorFormacaoService()
