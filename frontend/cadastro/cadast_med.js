@@ -12,7 +12,7 @@ const campoFormacao = document.querySelector("#formacao");
 
 function formatarCRM() {
     var campoCRM = document.getElementById("crm").value;
-    if(campoCRM[6]!="/"){
+    if(campoCRM[6]!="-"){
         if(campoCRM[6]!= undefined){
             document.getElementById("crm").value=campoCRM.slice(0,6)+"/"+campoCRM[6]
         }}

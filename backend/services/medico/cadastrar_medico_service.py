@@ -1,5 +1,6 @@
 from datetime import datetime
 from models.medico_model import Medico
+from repositories.medicos_repository import MedicosRepository
 
 class CriarMedicoService:
     def cadastrar(self, dados):
@@ -12,6 +13,10 @@ class CriarMedicoService:
         crm_existente = Medico.buscar_crm(dados["crm"])
         if crm_existente:
             raise ValueError("Este CRM já está cadastrado.")
+
+        email_existente = MedicosRepository.buscar_email()
+        if email_existente:
+            raise ValueError("Email já cadastrado.")
         
         medico = Medico(
             crm = dados["crm"],

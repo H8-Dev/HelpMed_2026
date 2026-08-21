@@ -49,7 +49,7 @@ class MedicoController:
 
         return jsonify(medico), 200
 
-    @med_controller.get('/medicos/buscar/<string:formacao>')
+    @med_controller.get('/medicos/buscar/formacao/<string:formacao>')
     def buscar_medico_por_formacao(formacao):
 
         service = BuscarMedicoPorFormacaoService()

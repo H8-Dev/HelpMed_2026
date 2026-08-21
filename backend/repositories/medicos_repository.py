@@ -6,9 +6,26 @@ from models.medico_model import Medico
 class MedicosRepository:
     @staticmethod
     def buscar_formacao(formacao):
-        query = text("SELECT * FROM medicos WHERE formacao = :formacao")
-        result = db.session.execute(query, {"formacao": formacao})
-        medicos = result.mappings().all()
-        result.close()
+        banco = db.session.get_bind().dialect.name
 
-        return [Medico(**dict(medico)) for medico in medicos]
+        if banco == "mysql":
+            query = text("SELECT * FROM medicos WHERE formacao = :formacao")
+            result = db.session.execute(query, {"formacao": formacao})
+            medicos = result.mappings().all()
+            result.close()
+            return [Medico(**dict(medico)) for medico in medicos]
+        
+        return (Medico.query.filter(Medico.formacao == formacao).all())
+
+    @staticmethod
+    def buscar_email(email):
+        banco = db.session.get_bind().dialect.name
+
+        if banco == "mysql":
+            query = text("SELECT * FROM medicos WHERE email = :email")
+            result = db.session.execute(query, {"email": email})
+            medicos = result.mappings().all()
+            result.close()
+            return [Medico(**dict(medico)) for medico in medicos]
+        
+        return (Medico.query.filter(Medico.email == email).all())
