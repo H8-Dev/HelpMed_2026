@@ -41,7 +41,7 @@
     /* Mescla a imagem background.png com o degradê verde radial original */
     background: 
       radial-gradient(circle at bottom right, rgba(103,194,101,0.2) 0%, rgba(243,248,245,0.4) 70%),
-      url('/frontend/helpmed-login/assets/background.png') no-repeat center center;
+      url('/assets/background.png') no-repeat center center;
     background-size: cover;
     z-index: 0;
     pointer-events: none;
