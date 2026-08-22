@@ -34,3 +34,12 @@ class Paciente(db.Model):
     @staticmethod
     def buscar_cpf(cpf):
         return Paciente.query.filter_by(cpf=cpf).first()
+
+    def to_dict(self):
+        return {
+            "cpf": self.cpf,
+            "senha": self.senha,
+            "nome": self.nome,
+            "sobrenome": self.sobrenome,
+            "email": self.email
+        }

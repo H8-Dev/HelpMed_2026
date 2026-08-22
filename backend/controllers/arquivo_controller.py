@@ -15,12 +15,10 @@ class ArquivoController:
         try:
             body = request.get_json(silent=True) or request.form
             dados = {
-                "arq_id": str(body['arq_id']),
                 "type": str(body['type']),
                 "url": str(body['url']),
                 "pac_id": str(body['pac_id']),
-                "med_id": str(body['med_id']),
-                "last_update": str(body['last_update'])
+                "med_id": str(body['med_id'])
             }
 
             service = SalvarArquivoService()
@@ -34,7 +32,7 @@ class ArquivoController:
             db.session.rollback()
             return jsonify({"error": "Erro ao salvar o arquivo"}), 500
 
-    @arq_controller.get('/arquivos/<int:pac_id>')
+    @arq_controller.get('/arquivos/<string:pac_id>')
     def buscar_arquivos_do_paciente(pac_id):
 
         service = BuscarArquivoPorPaciente()

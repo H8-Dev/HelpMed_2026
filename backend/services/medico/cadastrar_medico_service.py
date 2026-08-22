@@ -14,7 +14,7 @@ class CriarMedicoService:
         if crm_existente:
             raise ValueError("Este CRM já está cadastrado.")
 
-        email_existente = MedicosRepository.buscar_email()
+        email_existente = MedicosRepository.buscar_email(dados["email"])
         if email_existente:
             raise ValueError("Email já cadastrado.")
         
