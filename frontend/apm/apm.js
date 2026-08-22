@@ -1,19 +1,16 @@
-const API_URL = "http://127.0.0.1:5000/arquivos/";
+const API_URL = "http://127.0.0.1:5000/arquivos";
 
 const arquivo = document.getElementById("area_arquivo");
 
-// const documentos = {
-//   doc1: "Este é o conteúdo do primeiro documento.",
-//   doc2: "Aqui está o texto do segundo documento.",
-//   doc3: "Por fim, este é o terceiro documento."
-// };
-// 
-// function mudarDocumento(idDoc) {
-//   const editor = document.getElementById("meuEditor");
-//   editor.value = documentos[idDoc];
-// }
-// 
-// mudarDocumento('doc1');
+const response = await fetch(`${API_URL}/${encodeURIComponent(pac_id)}`);
+const documentos = response;
+
+function mudarDocumento(idDoc) {
+  
+  arquivo.value = documentos[id];
+}
+
+mudarDocumento('doc1');
 
 
 function ferramentaDeBusca(palavaChave){

@@ -10,15 +10,14 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="cadast_med.js"></script>
 </head>
 <body>
 
 
   <!-- Logo no canto superior esquerdo -->
   <header class="header-logo">
-    <a href="#" class="logo-link">
-      <img src="/assets/logo.png" alt="logo">
-    </a>
+      <img src="/assets/logo.png" class="head-logo" alt="logo">
   </header>
 
   <!-- Card do Formulário Centralizado -->
@@ -50,12 +49,12 @@
       <div class="input-row">
         <div class="input-group">
           <label for="crm">CRM / UF</label>
-          <input type="text" id="crm" name="crm" placeholder="000000-UF" required />
+          <input type="text" id="crm" name="crm" placeholder="000000-UF" maxlength="9" oninput="formatarCRM()" required />
         </div>
 
         <div class="input-group">
           <label for="cpf">CPF</label>
-          <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" required />
+          <input type="text" id="cpf" name="cpf" placeholder="000.000.000-00" maxlength="14" oninput="formatarCPF()" required />
         </div>
       </div>
 
