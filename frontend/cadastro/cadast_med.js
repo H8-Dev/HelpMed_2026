@@ -1,13 +1,22 @@
 const API_URL = "http://127.0.0.1:5000/medicos/cadastrar";
 
-const form = document.querySelector("#form-medico");
-const medId = document.querySelector("#crm")
-const campoCPF = document.querySelector("#cpf");
-const campoSenha = document.querySelector("#senha");
-const campoNome = document.querySelector("#nome");
-const campoSobrenome = document.querySelector("#sobrenome");
-const campoEmail = document.querySelector("#email");
-const campoFormacao = document.querySelector("#formacao");
+const form = document.getElementById("form-medico");
+    const medId = document.querySelector("#crm")
+    const campoCPF = document.querySelector("#cpf");
+    const campoSenha = document.querySelector("#senha");
+    const campoNome = document.querySelector("#nome");
+    const campoSobrenome = document.querySelector("#sobrenome");
+    const campoEmail = document.querySelector("#email");
+    const campoFormacao = document.querySelector("#formacao");
+
+
+if (form){
+    form.addEventListener('submit', function(event){
+        event.preventDefault();
+    });
+} else {
+    console.log("Falhou.")
+}
 
 
 function formatarCRM() {
@@ -46,16 +55,19 @@ function formatarCPF() {
 
 
 async function cadastrarMedico() {
-
+    
+    console.log("Cadastrando Medico...");
     const dados = {
-        crm: medId.value,
-        cpf: campoCPF.value,
-        senha: campoSenha.value,
-        nome: campoNome.value,
-        sobrenome: campoSobrenome.value,
-        email: campoEmail.value,
-        formacao: campoFormacao.value
+        "crm": medId.value,
+        "cpf": campoCPF.value,
+        "senha": campoSenha.value,
+        "nome": campoNome.value,
+        "sobrenome": campoSobrenome.value,
+        "email": campoEmail.value,
+        "formacao": campoFormacao.value
     };
+
+    console.log(dados)
 
     try {
         const response = await fetch(API_URL, {
@@ -65,7 +77,13 @@ async function cadastrarMedico() {
             },
             body: JSON.stringify(dados)
         });
+        console.log("Resposta do cadastro: " + response);
     } catch (error) {
         console.error("Erro de conexão com a API:", "error");
+    }
+    if (response.status == 201) {
+        header("home/home.html");
+    } else {
+        alert("Erro no cadastro, por favor revise o conteúdo e tente novamente")
     }
 }

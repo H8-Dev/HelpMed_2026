@@ -7,6 +7,15 @@ const campoNome = document.querySelector("#nome");
 const campoSobrenome = document.querySelector("#sobrenome");
 const campoEmail = document.querySelector("#email");
 
+if (form){
+    form.addEventListener('submit', function(event){
+        event.preventDefault();
+    });
+} else {
+    console.log("Falhou.")
+}
+
+
 function formatarCPF() {
     var campoCPF = document.getElementById("cpf").value;
     if(campoCPF[3]!="."){
@@ -43,8 +52,13 @@ async function cadastrarPaciente() {
             },
             body: JSON.stringify(dados)
         });
-
+        console.log("Resposta do cadastro: " + response);
     } catch (error) {
         console.error("Erro de conexão com a API:", "error");
+    }
+    if (response.status == 201) {
+        header("home/home.html");
+    } else {
+        alert("Erro no cadastro, por favor revise o conteúdo e tente novamente")
     }
 }

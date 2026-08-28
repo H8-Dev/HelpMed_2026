@@ -1,4 +1,4 @@
-from sqlalchemy import text #type: ignore
+from sqlalchemy import text, case, label #type: ignore
 
 from models.database import db
 from models.medico_model import Medico
@@ -29,3 +29,22 @@ class MedicosRepository:
             return [Medico(**dict(medico)) for medico in medicos]
         
         return (Medico.query.filter(Medico.email == email).all())
+
+    @staticmethod
+    def login_medico(crm, senha):
+        banco = db.session.get_bind().dialect.name
+        
+        if banco == "mysql":
+            query = text("CALL sp_login_medico(:crm, :senha)")
+            resultado = db.session.execute(query, {"crm": crm, "senha": senha})
+            check = resultado.mappings().first()
+            resultado.close()
+            return check
+
+        return {
+            Medico.senha,
+            case(
+                (Medico.senha == senha, True),
+                else_=False
+            ).label("check").filter(Medico.crm == crm)
+        }

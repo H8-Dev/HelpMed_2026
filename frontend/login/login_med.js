@@ -1,9 +1,16 @@
-const API_URL = "http://127.0.0.1:5000/medicos/buscar";
+const API_URL = "http://127.0.0.1:5000/medicos/login";
 
 const form = document.querySelector("#form-medico");
 const medId = document.querySelector("#crm")
-const campoCPF = document.querySelector("#cpf");
 const campoSenha = document.querySelector("#senha");
+
+if (form){
+    form.addEventListener('submit', function(event){
+        event.preventDefault();
+    });
+} else {
+    console.log("Falhou.")
+}
 
 
 function formatarCRM() {
@@ -22,45 +29,28 @@ function formatarCRM() {
         }}
 }
 
-function formatarCPF() {
-    var campoCPF = document.getElementById("cpf").value;
-    if(campoCPF[3]!="."){
-        if(campoCPF[3]!= undefined){
-            document.getElementById("cpf").value=campoCPF.slice(0,3)+"."+campoCPF[3]
-        }}
+async function loginMedico(){
 
-    if(campoCPF[7]!="."){
-        if(campoCPF[7]!= undefined){
-            document.getElementById("cpf").value=campoCPF.slice(0,7)+"."+campoCPF[7]
-        }}
+    const dados = {
+        "crm": medId.value,
+        "senha": campoSenha.value
+    };
 
-    if(campoCPF[11]!="-"){
-        if(campoCPF[11]!= undefined){
-            document.getElementById("cpf").value=campoCPF.slice(0,11)+"-"+campoCPF[11]
-        }}
-}
-
-
-//VV Testes VV{
-async function buscarMedico(){
-
-    try{
-        const response = await fetch(`${API_URL}/${medId.value}`, {
-            method: "GET",
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json"
-            }
+            },
+            body: JSON.stringify(dados)
         });
-        const dados = await response.json();
-
-        if (!response.ok) {
-            showMessage(dados.error || "Médico não está cadastrado.", "error");
-            return;
-        }
-
-    }catch (error) {
+        console.log("Resposta do pedido de login: " + response);
+    } catch (error) {
         console.error("Erro de conexão com a API:", "error");
     }
-
+    if (response.status == 200) {
+        header("home/home.html");
+    } else {
+        alert("Usuário ou Senha inválidos!!");
+    }
 }
-//} ^^ Testes ^^

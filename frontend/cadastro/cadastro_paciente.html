@@ -43,30 +43,30 @@
         <div class="input-row">
           <div class="input-group">
             <label for="nome">Nome</label>
-            <input type="text" id="nome" name="nome" placeholder="Seu nome" required />
+            <input type="text" id="nome" name="nome" maxlength="50" placeholder="Seu nome" required />
           </div>
   
           <div class="input-group">
             <label for="sobrenome">Sobrenome</label>
-            <input type="text" id="sobrenome" name="sobrenome" placeholder="Seu sobrenome" required />
+            <input type="text" id="sobrenome" name="sobrenome" maxlength="80" placeholder="Seu sobrenome" required />
           </div>
         </div>
         
       <!-- Campo E-mail -->
       <div class="input-group">
         <label for="email">E-mail</label>
-        <input type="email" id="email" name="email" placeholder="seuemail@exemplo.com" required />
+        <input type="email" id="email" name="email" maxlength="120" placeholder="seuemail@exemplo.com" required />
       </div>
 
       <!-- Campo Senha -->
       <div class="input-group">
         <label for="senha">Senha</label>
-        <input type="password" id="senha" name="senha" placeholder="Digite uma senha forte" required />
+        <input type="password" id="senha" name="senha" maxlength="50" placeholder="Digite uma senha forte" required />
       </div>
 
       <!-- Botão de Cadastro (Destaque conforme wireframe na parte inferior) -->
       <div class="form-footer">
-        <button type="submit" class="btn-submit">
+        <button type="submit" onclick="cadastrarPaciente()" class="btn-submit">
           <span>Cadastrar</span>
           <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
             <line x1="5" y1="12" x2="19" y2="12"></line>

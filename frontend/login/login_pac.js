@@ -1,9 +1,18 @@
-const API_URL = "http://127.0.0.1:5000/pacientes/buscar";
+const API_URL = "http://127.0.0.1:5000/pacientes/login";
 
 
 const form = document.querySelector(".login-form");
 const pacId = document.querySelector("#cpf")
 const campoSenha = document.querySelector("#senha");
+
+if (form){
+    form.addEventListener('submit', function(event){
+        event.preventDefault();
+    });
+} else {
+    console.log("Falhou.")
+}
+
 
 function formatarCPF() {
     var campoCPF = document.getElementById("cpf").value;
@@ -21,4 +30,30 @@ function formatarCPF() {
         if(campoCPF[11]!= undefined){
             document.getElementById("cpf").value=campoCPF.slice(0,11)+"-"+campoCPF[11]
         }}
+}
+
+async function loginPaciente() {
+    
+    const dados = {
+        "cpf": pacId.value,
+        "senha": campoSenha.value
+    };
+
+    try {
+        const response = await fetch(API_URL, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(dados)
+        });
+        console.log("Resposta do pedido de login: " + response);
+    } catch (error) {
+        console.error("Erro de conexão com a API:", "error");
+    }
+    if (response.status == 200) {
+        header("home/home.html");
+    } else {
+        alert("Usuário ou Senha inválidos!!");
+    }
 }

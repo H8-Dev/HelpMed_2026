@@ -28,7 +28,7 @@
         <p>Informe seu CPF e senha para continuar</p>
       </div>
 
-      <form class="login-form" id="form-cliente" action="/home/home.html" method="get">
+      <form class="login-form" id="form-cliente">
         <div class="field-group">
           <label for="cpf">CPF</label>
           <div class="input-wrap">
@@ -60,6 +60,7 @@
               id="senha"
               name="senha"
               type="password"
+              maxlength="50"
               autocomplete="current-password"
               placeholder="••••••••"
             />
@@ -71,7 +72,7 @@
           </div>
         </div>
 
-        <button class="submit-button" type="submit">
+        <button class="submit-button" onclick="loginPaciente()" type="submit">
           <span>Entrar</span>
           <svg viewBox="0 0 24 24" aria-hidden="true">
             <path d="M13.2 5.3a1 1 0 0 1 1.4 0l5.9 5.9a1 1 0 0 1 0 1.4l-5.9 5.9a1 1 0 0 1-1.4-1.4l4.2-4.2H4.5a1 1 0 1 1 0-2h12.9l-4.2-4.2a1 1 0 0 1 0-1.4Z" />
