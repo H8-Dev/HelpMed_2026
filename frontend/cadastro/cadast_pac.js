@@ -53,12 +53,8 @@ async function cadastrarPaciente() {
             body: JSON.stringify(dados)
         });
         console.log("Resposta do cadastro: " + response);
+        header("home/home.html");
     } catch (error) {
         console.error("Erro de conexão com a API:", "error");
-    }
-    if (response.status == 201) {
-        header("home/home.html");
-    } else {
-        alert("Erro no cadastro, por favor revise o conteúdo e tente novamente")
     }
 }
