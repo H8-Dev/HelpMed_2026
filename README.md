@@ -1,8 +1,11 @@
 ﻿<h1> Projeto de Software </h1>
 Repositório com o trabalho feito para o projeto final do ensino médio com um app chamado Helpmed <br>
 -> Nome do Projeto: Helpmed <br>
-->Nome Completo dos integrantes:<br>
-\\ Heitor Araújo de Souza | H8<br>\\ Gustavo Yvo Martins Costa<br>\\ Hebert Velloso Guimarães<br>\\ Gabriel Ladeira Valadares <br>
+-> Nome Completo dos integrantes:<br>
+\\ Heitor Araújo de Souza | H8<br>
+\\ Gustavo Yvo Martins Costa<br>
+\\ Hebert Velloso Guimarães<br>
+\\ Gabriel Ladeira Valadares <br>
 
 <h2>Projeto Realizado com as seguintes ferramentas:</h2>
   Backend em Flask<br>
@@ -12,7 +15,7 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
 
 <h2>Funcionalidades</h2>
 <h3>🟢 Concluído e Testado | 🟠 Concluído e testando | 🟡 Em progresso | 🔴 Não iniciado |</h3> <br>
-- 1 -> Cadastro e Login de novos médicos e pacientes 🟠 <br>
+- 1 -> Cadastro e Login de novos médicos e pacientes 🟢 <br>
 - 2 -> Adição de Novos arquivos 🟠 <br>
 - 3 -> Direcionamento de paciente a médico 🔴 <br>
 - 4 -> Descobrir os medicamentos usados anteriormente pelo paciente 🔴 <br>
