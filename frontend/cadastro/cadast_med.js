@@ -75,7 +75,7 @@ async function cadastrarMedico() {
             body: JSON.stringify(dados)
         });
         console.log("Resposta do cadastro: " + response);
-        header("home/home.html");
+        window.location.href = "../home/home.html";
     }
     catch (error) {
         console.error("Erro de conexão com a API:", "error");
