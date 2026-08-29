@@ -1,13 +1,13 @@
 const API_URL = "http://127.0.0.1:5000/medicos/cadastrar";
 
 const form = document.getElementById("form-medico");
-    const medId = document.querySelector("#crm")
-    const campoCPF = document.querySelector("#cpf");
-    const campoSenha = document.querySelector("#senha");
-    const campoNome = document.querySelector("#nome");
-    const campoSobrenome = document.querySelector("#sobrenome");
-    const campoEmail = document.querySelector("#email");
-    const campoFormacao = document.querySelector("#formacao");
+const medId = document.querySelector("#crm")
+const campoCPF = document.querySelector("#cpf");
+const campoSenha = document.querySelector("#senha");
+const campoNome = document.querySelector("#nome");
+const campoSobrenome = document.querySelector("#sobrenome");
+const campoEmail = document.querySelector("#email");
+const campoFormacao = document.querySelector("#formacao");
 
 
 if (form){
@@ -75,8 +75,9 @@ async function cadastrarMedico() {
             body: JSON.stringify(dados)
         });
         console.log("Resposta do cadastro: " + response);
-    } catch (error) {
+        header("home/home.html");
+    }
+    catch (error) {
         console.error("Erro de conexão com a API:", "error");
     }
-    header("home/home.html");
 }
