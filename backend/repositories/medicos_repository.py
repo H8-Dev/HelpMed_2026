@@ -13,7 +13,7 @@ class MedicosRepository:
             result = db.session.execute(query, {"formacao": formacao})
             medicos = result.mappings().all()
             result.close()
-            return [Medico(**dict(medico)) for medico in medicos]
+            return [Medico(**dict(medico)).lower for medico in medicos]
         
         return (Medico.query.filter(Medico.formacao == formacao).all())
 
@@ -26,7 +26,7 @@ class MedicosRepository:
             result = db.session.execute(query, {"email": email})
             medicos = result.mappings().all()
             result.close()
-            return [Medico(**dict(medico)) for medico in medicos]
+            return [Medico(**dict(medico.lower)) for medico in medicos]
         
         return (Medico.query.filter(Medico.email == email).all())
 

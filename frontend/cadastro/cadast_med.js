@@ -56,7 +56,6 @@ function formatarCPF() {
 
 async function cadastrarMedico() {
     
-    console.log("Cadastrando Medico...");
     const dados = {
         "crm": medId.value,
         "cpf": campoCPF.value,
@@ -67,8 +66,6 @@ async function cadastrarMedico() {
         "formacao": campoFormacao.value
     };
 
-    console.log(dados)
-
     try {
         const response = await fetch(API_URL, {
             method: "POST",
@@ -78,8 +75,8 @@ async function cadastrarMedico() {
             body: JSON.stringify(dados)
         });
         console.log("Resposta do cadastro: " + response);
-        header("home/home.html");
     } catch (error) {
         console.error("Erro de conexão com a API:", "error");
     }
+    header("home/home.html");
 }
