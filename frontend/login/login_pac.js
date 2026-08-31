@@ -48,8 +48,12 @@ async function loginPaciente() {
             body: JSON.stringify(dados)
         });
         console.log("Resposta do pedido de login: " + response);
-        window.location.href = "home/home.html";
+        if (response.ok){
+            window.location.href = "../home/home.html";
+        } else{
+            alert("Usuário ou Senha inválidos!!")
+        }
     } catch (error) {
-        console.error("Erro de conexão com a API:", "error");
+        console.error("Erro de conexão com a API:", error);
     }
 }

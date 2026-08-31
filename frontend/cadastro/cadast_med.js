@@ -75,9 +75,13 @@ async function cadastrarMedico() {
             body: JSON.stringify(dados)
         });
         console.log("Resposta do cadastro: " + response);
-        window.location.href = "../home/home.html";
+        if (response.ok){
+            window.location.href = "../home/home.html";
+        } else{
+            alert("Usuário ou Senha inválidos!!")
+        }
     }
     catch (error) {
-        console.error("Erro de conexão com a API:", "error");
+        console.error("Erro de conexão com a API:", error);
     }
 }
