@@ -2,11 +2,11 @@
 Repositório com o trabalho feito para o projeto final do ensino médio com um app chamado Helpmed <br>
 -> Nome do Projeto: Helpmed <br>
 -> Nome Completo dos integrantes:<br>
-\\ Heitor Araújo de Souza | H8-Dev<br>
-\\ Gustavo Yvo Martins Costa<br>
-\\ Hebert Velloso Guimarães<br>
-\\ Gabriel Ladeira Valadares <br>
-
+/\ Heitor Araújo de Souza | H8-Dev<br>
+| | Gustavo Yvo Martins Costa<br>
+| | Hebert Velloso Guimarães<br>
+\/ Gabriel Ladeira Valadares <br>
+<br>
 -> Orientador: Gleison Brito <br>
 
 <h2>Projeto Realizado com as seguintes ferramentas:</h2>
