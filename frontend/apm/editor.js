@@ -2,18 +2,25 @@ const API_URL = "http://127.0.0.1:5000/arquivos";
 
 const arquivo = document.getElementById("area_arquivo");
 
-const response = await fetch(`${API_URL}/${encodeURIComponent(pac_id)}`);
-const documentos = response;
+
+async function fetchDocumentos() {
+    try {
+        const response = await fetch(`${API_URL}/${encodeURIComponent(pac_id)}`);
+        const documentos = await response.json();
+        return documentos;
+    } catch (error) {
+        console.error("Erro ao buscar documentos:", error);
+    }
+}
 
 function mudarDocumento(idDoc) {
   
   arquivo.value = documentos[id];
 }
 
-mudarDocumento('doc1');
 
-
-function ferramentaDeBusca(palavaChave){
+function ferramentaDeBusca(){
+    const palavaChave = document.getElementById('searchInput').value.trim();
     const resultados_pesquisa = [];
     const regex = new RegExp(palavaChave, 'i');
     let node;
@@ -26,11 +33,20 @@ function ferramentaDeBusca(palavaChave){
 
     while (node = busca.nextNode()){
         if (regex.test(node.nodeValue)){
-            resultados.push({
+            resultados_pesquisa.push({
                 elementoPai: node.parentNode,
                 textoCompleto: node.nodeValue.trim()
             });
         }
     }
-    return resultados;
+    return resultados_pesquisa;
 }
+
+function toggleModal(show) {
+      const modal = document.getElementById('modalBusca');
+      if (show == "True") {
+        modal.classList.add('active');
+      } else {
+        modal.classList.remove('active');
+      }
+    }
