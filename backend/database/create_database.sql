@@ -1,3 +1,4 @@
+drop database helpmed_db;
 create database if not exists helpmed_db
 CHARACTER SET utf8mb4
 COLLATE utf8mb4_unicode_ci;
@@ -33,7 +34,8 @@ last_update timestamp default current_timestamp not null
 create table if not exists  arquivos(
 arq_id int primary key not null,
 type varchar(20) not null,
-url varchar(2083) not null,
+nome_arq varchar(100) not null,
+dados LONGBLOB not null,
 a_pac_id varchar(14) not null,
 a_med_id varchar(9) not null,
 constraint a_pac_id
