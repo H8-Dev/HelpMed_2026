@@ -27,7 +27,13 @@ data_create timestamp default current_timestamp not null
 
 create table if not exists  chat(
 chat_id int primary key not null,
-url varchar(2083) not null,
+dados JSON not null,
+c_pac_id varchar(14) not null,
+c_med_id varchar(9),
+constraint c_pac_id
+	foreign key (c_pac_id) references pacientes(cpf),
+constraint c_med_id
+	foreign key (c_med_id) references medicos(crm),
 last_update timestamp default current_timestamp not null
 ) engine = InnoDB;
 
@@ -37,7 +43,7 @@ type varchar(20) not null,
 nome_arq varchar(100) not null,
 dados LONGBLOB not null,
 a_pac_id varchar(14) not null,
-a_med_id varchar(9) not null,
+a_med_id varchar(9),
 constraint a_pac_id
 	foreign key (a_pac_id) references pacientes(cpf),
 constraint a_med_id

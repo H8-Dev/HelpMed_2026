@@ -3,9 +3,9 @@ from .database import db
 class Chat(db.Model):
     __tablename__ = "chat"
 
-    chat_id = db.Column(db.Interger, primary_key=True, nullable=False)
-    url = db.Column(db.String(2083), nullable=False)
-    med_id = db.Column(db.String(15), db.ForeignKey("medicos.crm"), nullable=False)
+    chat_id = db.Column(db.Integer, primary_key=True, nullable=False)
+    dados = db.Column(db.JSON, nullable=False)
+    med_id = db.Column(db.String(15), db.ForeignKey("medicos.crm"))
     pac_id = db.Column(db.String(14), db.ForeignKey("pacientes.cpf", ondelete='CASCADE'), nullable=False)
     last_update = db.Column(db.TIMESTAMP, nullable=False)
 
