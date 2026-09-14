@@ -24,7 +24,7 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
 -> Navegador de arquivos para achar informações 🟠 <br>
 
 <h3>🟡 Em progresso | 5 </h3> <br>
--> Criação de gráfico customizável 🟡 <br>
+-> Criação de gráfico a partir de informações selecionadas 🟡 <br>
 -> Troca de tela de chat salvando a atual 🟡 <br>
 -> O sistema deve permitir o paciente informar seus problemas 🟡 <br>
 -> Editor de arquivos 🟡 <br>
