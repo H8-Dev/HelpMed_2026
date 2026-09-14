@@ -4,9 +4,9 @@ import io
 
 from models.database import db
 
-from backend.services.arquivo.buscar_arquivo_paciente_service import BuscarArquivoPorPaciente
+from services.arquivo.buscar_arquivo_paciente_service import BuscarArquivoPorPaciente
 from services.arquivo.salvar_arquivo_service import SalvarArquivoService
-from backend.services.arquivo.buscar_arquivo_por_id_service import BuscarArquivoPorId
+from services.arquivo.buscar_arquivo_por_id_service import BuscarArquivoPorId
 
 arq_controller = Blueprint("arq_controller", __name__)
 
@@ -62,3 +62,7 @@ class ArquivoController:
             io.BytesIO(arquivo.dados),
             mimetype='text/plain'
         ), 200
+
+    @arq_controller.put('/arquivos/<int:arq_id>')
+    def atualizar_arquivo(arq_id):
+        return;

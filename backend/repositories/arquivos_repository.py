@@ -37,7 +37,7 @@ class ArquivoRepository:
 
         if banco == "mysql":
             query = text("SELECT * FROM arquivos WHERE med_id = :med_id and pac_id = :pac_id")
-            result = db.session.execute(query, {"med_id": med_id}, {"pac_id": pac_id})
+            result = db.session.execute(query, {"med_id": med_id, "pac_id": pac_id})
             arquivo_data = result.mappings().all()
             result.close()
 
@@ -50,7 +50,7 @@ class ArquivoRepository:
 #
     #    if banco == "mysql":
     #        query = text("UPDATE arquivos SET med_id = :med_id WHERE arq_id = :arq_id")
-    #        result = db.session.execute(query, {"med_id": med_id}, {"arq_id": arq_id})
+    #        result = db.session.execute(query, {"med_id": med_id, "arq_id": arq_id})
     #        result.close()
     #        return True
 #
