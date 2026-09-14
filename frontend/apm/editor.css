@@ -24,6 +24,8 @@
     background-color: #e5ebe4;
     border-right: 1px solid var(--border-color);
     display: flex;
+    position: fixed;
+    height: 100%;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
@@ -92,6 +94,7 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding-left: 65px;
   }
   
   /* --- BARRA SUPERIOR DE AÇÕES --- */
@@ -157,32 +160,20 @@
     align-items: center;
     justify-content: center;
   }
-  
-  /* ESTILIZAÇÃO DO PLACEHOLDER */
-  .placeholder {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-    color: #a0aec0;
-    user-select: none;
-  }
-  
-  .placeholder svg {
-    width: 48px;
-    height: 48px;
-    stroke: #cbd5e0;
-  }
-  
-  .placeholder p {
-    font-size: 0.9rem;
-    font-weight: 500;
-    color: #718096;
+
+  .editor{
+    width: 100%;
+    height: 100%;
+    border: none;
+    box-sizing: border-box;
+    padding: 10px;
+    font-family: 'Montserrat', sans-serif;
+    resize: none;
   }
   
   /* PAINEL LATERAL DIREITO */
   .right-panel {
-    width: 120px;
+    width: 80px;
     display: flex;
     flex-direction: column;
     gap: 15px;
