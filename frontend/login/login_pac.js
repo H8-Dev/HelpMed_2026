@@ -49,6 +49,7 @@ async function loginPaciente() {
         });
         console.log("Resposta do pedido de login: " + response);
         if (response.ok){
+            localStorage.setItem("profile", "PATIENT");
             window.location.href = "../home/home.html";
         } else{
             alert("Usuário ou Senha inválidos!!")

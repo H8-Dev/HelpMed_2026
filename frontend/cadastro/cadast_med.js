@@ -76,6 +76,7 @@ async function cadastrarMedico() {
         });
         console.log("Resposta do cadastro: " + response);
         if (response.ok){
+            localStorage.setItem("profile", "DOCTOR");
             window.location.href = "../home/home.html";
         } else{
             alert("Usuário ou Senha inválidos!!")

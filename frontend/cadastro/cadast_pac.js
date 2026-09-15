@@ -54,6 +54,7 @@ async function cadastrarPaciente() {
         });
         console.log("Resposta do cadastro: " + response);
         if (response.ok){
+            localStorage.setItem("profile", "PATIENT");
             window.location.href = "../home/home.html";
         } else{
             alert("Usuário ou Senha inválidos!!")
