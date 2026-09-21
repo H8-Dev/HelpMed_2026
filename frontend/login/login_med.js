@@ -46,6 +46,7 @@ async function loginMedico(){
         });
         console.log("Resposta do pedido de login: " + response);
         if (response.ok){
+            localStorage.setItem("id", medId.value);
             localStorage.setItem("profile", "DOCTOR");
             window.location.href = "../home/home.html";
         } else{

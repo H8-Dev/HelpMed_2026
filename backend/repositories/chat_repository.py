@@ -21,3 +21,12 @@ class ChatRepository:
         result.close()
 
         return [Chat(**dict(chat)) for chat in chat_data]
+
+    @staticmethod
+    def buscar_chats(id):
+        query = text("CALL sp_buscar_chats(:id)")
+        result = db.session.execute(query, {"id": id})
+        chat_data = result.mappings().all()
+        result.close()
+
+        return [Chat(**dict(chat)) for chat in chat_data]

@@ -26,7 +26,7 @@ data_create timestamp default current_timestamp not null
 ) engine = InnoDB;
 
 create table if not exists  chat(
-chat_id int primary key not null,
+chat_id int primary key auto_increment not null,
 dados JSON not null,
 c_pac_id varchar(14) not null,
 c_med_id varchar(9),
@@ -38,7 +38,7 @@ last_update timestamp default current_timestamp not null
 ) engine = InnoDB;
 
 create table if not exists  arquivos(
-arq_id int primary key not null,
+arq_id int primary key auto_increment not null,
 type varchar(20) not null,
 nome_arq varchar(100) not null,
 dados LONGBLOB not null,
@@ -52,7 +52,7 @@ last_update timestamp default current_timestamp not null
 ) engine = InnoDB;
 
 create table if not exists  pagamentos(
-pag_id int primary key not null,
+pag_id int primary key auto_increment not null,
 total decimal(10,2) not null,
 p_pac_id varchar(14) not null,
 p_med_id varchar(9) not null,
@@ -101,5 +101,18 @@ BEGIN
 		SELECT FALSE as check1;
 	end if;
 	
+END $
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS sp_buscar_chats;
+
+DELIMITER $
+CREATE PROCEDURE sp_buscar_chats(in param_id int)
+BEGIN
+	
+	SELECT * FROM chat
+	WHERE CAST(REGEXP_REPLACE(c_pac_id, '[^0-9]', '') AS SIGNED) = param_id OR CAST(REGEXP_REPLACE(c_med_id, '[^0-9]', '') AS SIGNED) = param_id;
+
 END $
 DELIMITER ;

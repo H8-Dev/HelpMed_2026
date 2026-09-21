@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HelpMed - Plataforma Integrada de Comunicação em Saúde</title>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="chat.css">
+    <script src="chat.js" defer></script>
+</head>
+<body>
+
+    <!-- Profile & Backend Switcher Bar -->
+    <div class="profile-switcher-bar">
+        <span class="status-badge" id="backend-status">API: Mock Local</span>
+        <label id="profile-label">Perfil Ativo:</label>
+        <button class="switch-btn" id="toggle-profile-btn" onclick="toggleProfile()">
+            <i class="fas fa-user-md"></i>
+            <span id="profile-btn-text">Alternar para Paciente</span>
+        </button>
+    </div>
+
+    <!-- Navigation Sidebar -->
+    <aside class="sidebar">
+        <div class="logo-container" title="HelpMed Platform">
+            <a href="/home/home.html">
+                <img src="/assets/logo.png" alt="HelpMed Logo">
+            </a>
+        </div>
+        
+        <div class="nav-icon active" title="Conversas"><i class="fas fa-comments"></i></div>
+        <div class="nav-icon" title="Documentos"><i class="fas fa-folder"></i></div>
+        
+        <!-- Role-based conditionally rendered menu options -->
+        <div class="nav-icon doctor-only-nav" id="nav-forms" title="Formulários / Prontuários"><i class="fas fa-clipboard-list"></i></div>
+        <div class="nav-icon doctor-only-nav" id="nav-ai" title="Módulo IA Diagnóstico"><i class="fas fa-brain"></i></div>
+        
+        <div class="avatar-bottom" id="user-avatar-bottom">M</div>
+    </aside>
+
+    <!-- Dynamic Conversations Panel -->
+    <section class="conversations-panel">
+        <header class="panel-header">
+            <h2>Conversas</h2>
+        </header>
+        <ul class="patient-list" id="conversations-list">
+            <!-- Dynamic chats loaded from Flask / Mock API -->
+        </ul>
+    </section>
+
+    <!-- Main Chat Workspace -->
+    <main class="chat-area">
+        <!-- Chat Header -->
+        <header class="chat-header">
+            <div class="chat-header-info">
+                <div class="chat-patient-avatar" id="chat-header-avatar">P</div>
+                <h1 class="chat-patient-name" id="chat-header-name">Carregando...</h1>
+            </div>
+            <div class="chat-header-icons">
+                <div class="header-icon" title="Agendamentos"><i class="fas fa-calendar-alt"></i></div>
+                <div class="header-icon" title="Prontuário/Receitas"><i class="fas fa-file-invoice"></i></div>
+                <div class="header-icon" title="Opções"><i class="fas fa-ellipsis-v"></i></div>
+            </div>
+        </header>
+
+        <!-- Dynamic Message List Stream -->
+        <section class="chat-messages" id="chat-messages-container">
+            <!-- Dynamic Messages Injection -->
+        </section>
+
+        <!-- Message Input Bar -->
+        <footer class="chat-input-bar">
+            <div class="input-container">
+                <div class="icon-attach" title="Anexar documento médico"><i class="fas fa-file-medical"></i></div>
+                <input type="text" class="input-field" id="message-input" placeholder="Escreva sua mensagem..." onkeypress="handleKeyPress(event)">
+                <div class="icon-send" onclick="sendMessage()" title="Enviar mensagem"><i class="fas fa-arrow-right"></i></div>
+            </div>
+        </footer>
+    </main>
+</body>
+</html>

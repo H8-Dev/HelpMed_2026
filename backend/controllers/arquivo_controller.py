@@ -65,4 +65,4 @@ class ArquivoController:
 
     @arq_controller.put('/arquivos/<int:arq_id>')
     def atualizar_arquivo(arq_id):
-        return;
+        return
