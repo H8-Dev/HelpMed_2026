@@ -24,25 +24,25 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
 -> Navegador de arquivos para achar informações 🟠 <br>
 -> Troca de tela de chat salvando a atual 🟠 <br>
 
-<h3>🟡 Em progresso | 5 </h3>
+<h3>🟡 Em progresso | 8 </h3>
 -> Criação de gráfico a partir de informações selecionadas 🟡 <br>
 -> O sistema deve permitir o paciente informar seus problemas 🟡 <br>
 -> Editor de arquivos 🟡 <br>
 -> Compartilhamento de arquivos enter médico e paciente 🟡 <br>
 -> Aba lateral com todos os chats que serão salvos ao paciente trocas entre seus chats 🟡 <br>
+-> Deletamento de informações do paciente, com cascata para apagar seus dados como chats e arquivos 🟡 <br>
+-> Chat com atendente virtual para informar problemas 🟡 <br>
+-> Navegador de arquivos de cada usuário 🟡 <br>
 
-<h3>🔴 Não iniciado | 11 </h3>
+<h3>🔴 Não iniciado | 8 </h3>
 -> Direcionamento de paciente a médico 🔴 <br>
 -> Descobrir os medicamentos usados anteriormente pelo paciente 🔴 <br>
 -> Exibir um resumo das fichas providas pelo usuário 🔴 <br>
 -> Pagamento digital entre paciente e medico 🔴 <br>
--> Chat com atendente virtual para informar problemas 🔴 <br>
 -> Resumo e organização de informações a partir da APM (IA)🔴 <br>
 -> Resumo de informações dos históricos fornecidos pelo pacientes a partir da APM (IA) 🔴 <br>
 -> Destaque de informações específicas a partir do pedido do médico ou usário a partir da APM (IA)🔴 <br>
 -> Integração e compartilhamento de arquivos com outras aplicações e sistemas medicos🔴 <br>
--> Deletamento de informações do paciente, com cascata para apagar seus dados como chats e arquivos 🔴 <br>
--> Navegador de arquivos de cada usuário 🔴 <br>
 -> Histórico de nota fiscal e todas as transações efetuados dentro do serviço 🔴 <br>
 
 <h3>⚫ Descontinuado | 3 </h3>
