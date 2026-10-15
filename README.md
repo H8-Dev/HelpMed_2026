@@ -42,10 +42,11 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
 -> Resumo e organização de informações a partir da APM (IA)🔴 <br>
 -> Resumo de informações dos históricos fornecidos pelo pacientes a partir da APM (IA) 🔴 <br>
 -> Destaque de informações específicas a partir do pedido do médico ou usário a partir da APM (IA)🔴 <br>
--> Integração e compartilhamento de arquivos com outras aplicações e sistemas medicos🔴 <br>
+-> Email automático com um resumo de o que fazemos com os dados do cliente🔴 <br>
 -> Histórico de nota fiscal e todas as transações efetuados dentro do serviço 🔴 <br>
 
-<h3>⚫ Descontinuado | 3 </h3>
+<h3>⚫ Descontinuado | 4 </h3>
 -> <s>Confirmação de consulta e penalização por não manter o prazo</s>⚫<br>
 -> <s>Agendamento de consultas entre paciente e médico - Uso da API do Google Agendas</s>⚫ <br>
 -> <s>O sistema deve enviar lembretes para os pacientes</s>⚫ <br>
+-> <s>Integração e compartilhamento de arquivos com outras aplicações e sistemas medicos</s>⚫ <br>
