@@ -11,7 +11,8 @@ senha varchar(50) not null,
 nome varchar(50) not null,
 sobrenome varchar(80) not null,
 email varchar(120) not null unique,
-data_create timestamp default current_timestamp not null
+data_create timestamp default current_timestamp not null,
+ativo boolean default true not null
 ) engine = InnoDB;
 
 create table if not exists  medicos(
@@ -22,7 +23,8 @@ nome varchar(50) not null,
 sobrenome varchar(50) not null,
 email varchar(120) not null unique,
 formacao varchar(100) not null,
-data_create timestamp default current_timestamp not null
+data_create timestamp default current_timestamp not null,
+ativo boolean default true not null
 ) engine = InnoDB;
 
 create table if not exists  chat(
@@ -42,7 +44,7 @@ arq_id int primary key auto_increment not null,
 type varchar(20) not null,
 nome_arq varchar(100) not null,
 dados LONGBLOB not null,
-a_pac_id varchar(14) not null,
+a_pac_id varchar(14),
 a_med_id varchar(9),
 constraint a_pac_id
 	foreign key (a_pac_id) references pacientes(cpf),
@@ -62,6 +64,15 @@ constraint p_med_id
 	foreign key (p_med_id) references medicos(crm),
 data_hora timestamp default current_timestamp not null
 ) engine = InnoDB;
+
+DELIMITER $
+CREATE TRIGGER chat_insert after insert on chat for each row
+BEGIN
+	update chat
+	set dados = json_set(dados, '$.id', last_insert_id())
+	where chat_id = last_insert_id();
+END$
+DELIMITER ;
 
 DROP PROCEDURE IF EXISTS sp_login_medico;
 
@@ -108,7 +119,7 @@ DELIMITER ;
 DROP PROCEDURE IF EXISTS sp_buscar_chats;
 
 DELIMITER $
-CREATE PROCEDURE sp_buscar_chats(in param_id int)
+CREATE PROCEDURE sp_buscar_chats(IN param_id BIGINT)
 BEGIN
 	
 	SELECT * FROM chat
