@@ -28,6 +28,11 @@
     position: relative;
     overflow-x: hidden;
   }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
   
   /* ==========================================
      FUNDO DECORATIVO (IMAGEM + ONDA VERDE)
