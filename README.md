@@ -15,16 +15,18 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
   SQLAlchemy como ORM<br>
   Frontend feito com HTML5, CSS3 e JavaScript
 
-<h2>Funcionalidades | 1/20</h2>
-<h3>🟢 Concluído e Testado | 1 </h3>
+<h2>Funcionalidades | 3/21</h2>
+<h3>🟢 Concluído e Testado | 3 </h3>
 -> Cadastro e Login de novos médicos e pacientes 🟢 <br>
+-> Navegador de arquivos de cada usuário 🟢 <br>
+-> Baixar arquivos armazenados no banco de dados 🟢 <br>
 
 <h3>🟠 Concluído e testando | 3 </h3>
 -> Adição de Novos arquivos 🟠 <br>
 -> Navegador de arquivos para achar informações 🟠 <br>
 -> Troca de tela de chat salvando a atual 🟠 <br>
 
-<h3>🟡 Em progresso | 8 </h3>
+<h3>🟡 Em progresso | 7 </h3>
 -> Criação de gráfico a partir de informações selecionadas 🟡 <br>
 -> O sistema deve permitir o paciente informar seus problemas 🟡 <br>
 -> Editor de arquivos 🟡 <br>
@@ -32,7 +34,6 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
 -> Aba lateral com todos os chats que serão salvos ao paciente trocas entre seus chats 🟡 <br>
 -> Deletamento de informações do paciente, com cascata para apagar seus dados como chats e arquivos 🟡 <br>
 -> Chat com atendente virtual para informar problemas 🟡 <br>
--> Navegador de arquivos de cada usuário 🟡 <br>
 
 <h3>🔴 Não iniciado | 8 </h3>
 -> Direcionamento de paciente a médico 🔴 <br>
