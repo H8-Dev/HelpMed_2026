@@ -7,8 +7,8 @@ class Arquivo(db.Model):
     type = db.Column(db.String(20), nullable=False)
     nome_arq = db.Column(db.String(100), nullable=False)
     dados = db.Column(db.LargeBinary(length=(2**32)-1), nullable=False)
-    pac_id = db.Column(db.String(14), db.ForeignKey('pacientes.cpf', ondelete='CASCADE'), nullable=False)
-    med_id = db.Column(db.String(15), db.ForeignKey('medicos.crm'))
+    a_pac_id = db.Column(db.String(14), db.ForeignKey('pacientes.cpf', ondelete='CASCADE'), nullable=False)
+    a_med_id = db.Column(db.String(15), db.ForeignKey('medicos.crm'))
     last_update = db.Column(db.TIMESTAMP, nullable=False)
 
     def salvar(self):
@@ -23,7 +23,7 @@ class Arquivo(db.Model):
         if dados is not None:
             self.dados = dados
         if med_id is not None:
-            self.med_id = med_id
+            self.a_med_id = med_id
         if last_update is not None:
             self.last_update = last_update
 
@@ -42,7 +42,7 @@ class Arquivo(db.Model):
             "type": self.type,
             "nome_arq": self.nome_arq,
             "dados": self.dados,
-            "pac_id": self.pac_id,
-            "med_id": self.med_id,
+            "a_pac_id": self.a_pac_id,
+            "a_med_id": self.a_med_id,
             "last_update": self.last_update
         }

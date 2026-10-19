@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelpMed - Biblioteca de Arquivos</title>
+  <link rel="stylesheet" href="biblioteca.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="biblioteca.js" defer></script>
+</head>
+<body>
+
+  <!-- BARRA LATERAL DA APLICAÇÃO -->
+  <aside class="sidebar-app">
+    <div class="sidebar-top">
+      <a href="/home/home.html" class="sidebar-logo" title="HelpMed">
+        <img src="/assets/logo.png" alt="HelpMed Logo">
+      </a>
+      <nav class="sidebar-menu">
+        <a href="/chat/chat.html" class="nav-item" title="Mensagens">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </a>
+        <a href="/arq_lib/biblioteca.html" class="nav-item active" title="Biblioteca de Arquivos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        </a>
+      </nav>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-avatar" title="Perfil"><a href="/config/configuracoes.html">M</a></div>
+    </div>
+  </aside>
+
+  <!-- ÁREA DE CONTEÚDO PRINCIPAL -->
+  <div class="main-layout">
+    <header class="top-header">
+      <div class="header-title">
+        <h1>Biblioteca de Arquivos</h1>
+        <p>Acesse e visualize seus documentos de saúde, laudos e receitas.</p>
+      </div>
+    </header>
+
+    <main class="content-area">
+      <div class="files-grid" id="filesGrid">
+        <!-- As miniaturas dos arquivos serão renderizadas dinamicamente via JS -->
+      </div>
+    </main>
+
+    <!-- BOTÃO FLUTUANTE DE ADICIONAR ARQUIVO NO CANTO DA TELA -->
+    <div class="floating-add-btn" id="btnFloatingAdd" title="Adicionar Arquivo (PDF / DOC)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <line x1="12" y1="5" x2="12" y2="19"></line>
+        <line x1="5" y1="12" x2="19" y2="12"></line>
+      </svg>
+      <input type="file" id="fileInput" accept=".pdf,.doc,.docx,.txt" multiple hidden />
+    </div>
+  </div>
+
+  <!-- MODAL DE VISUALIZAÇÃO DE CONTEÚDO -->
+  <div class="modal-overlay" id="fileModal">
+    <div class="modal-container">
+      <header class="modal-header">
+        <div class="modal-file-title">
+          <span class="file-badge" id="modalBadge">PDF</span>
+          <span id="modalFileId" hidden></span>
+          <h3 id="modalFileName">Nome_do_Arquivo.pdf</h3>
+        </div>
+        <button class="btn-close" id="btnCloseModal" title="Fechar">&times;</button>
+      </header>
+
+      <div class="modal-body" id="modalBody">
+        <!-- Indicador de carregamento ou conteúdo do arquivo -->
+        <div class="loading-spinner" id="modalSpinner">
+          <div class="spinner"></div>
+          <p>Carregando conteúdo do arquivo...</p>
+        </div>
+        <div class="file-text-content" id="modalTextContent" style="display: none;"></div>
+      </div>
+
+      <footer class="modal-footer">
+        <button class="btn-secondary" id="btnDownloadModal">Baixar</button>
+        <button class="btn-secondary" id="btnCloseModalFooter">Fechar</button>
+      </footer>
+    </div>
+  </div>
+
+</body>
+</html>

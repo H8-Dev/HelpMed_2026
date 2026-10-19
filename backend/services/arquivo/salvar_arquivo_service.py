@@ -3,7 +3,7 @@ from models.arquivos_model import Arquivo
 
 class SalvarArquivoService:
     def salvar(self, dados):
-        required = ["type", "nome_arq", "dados", "pac_id"]
+        required = ["type", "nome_arq", "dados"]
 
         for item in required:
             if not dados.get(item):
@@ -13,8 +13,8 @@ class SalvarArquivoService:
             type = dados["type"],
             nome_arq = dados["nome_arq"],
             dados = dados["dados"],
-            pac_id = dados["pac_id"],
-            med_id = dados["med_id"] or None,
+            a_pac_id = dados["a_pac_id"] or None,
+            a_med_id = dados["a_med_id"] or None,
             last_update = datetime.now()
         )
 
