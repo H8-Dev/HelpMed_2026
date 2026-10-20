@@ -5,7 +5,7 @@ class Chat(db.Model):
 
     chat_id = db.Column(db.Integer, primary_key=True, nullable=False)
     dados = db.Column(db.JSON, nullable=False)
-    c_pac_id = db.Column(db.String(14), db.ForeignKey("pacientes.cpf", ondelete='CASCADE'))
+    c_pac_id = db.Column(db.String(14), db.ForeignKey("pacientes.cpf", ondelete='CASCADE'), nullable=False)
     c_med_id = db.Column(db.String(15), db.ForeignKey("medicos.crm"))
     last_update = db.Column(db.TIMESTAMP, nullable=False)
 
