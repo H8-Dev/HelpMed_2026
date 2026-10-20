@@ -33,7 +33,6 @@ class MedicoController:
             medico = service.cadastrar(dados)
             return jsonify(medico), 201
 
-    
         except ValueError as error:
             return jsonify({"error": str(error)}), 400
 
@@ -42,18 +41,16 @@ class MedicoController:
             return jsonify({"error": "Erro ao cadastrar médico."}), 500
 
 
-    @med_controller.get('/medicos/buscar/<string:medico_crm>')
-    def buscar_medico_por_crm(medico_crm):
-
-        service = BuscarMedicoPorCRMService()
-        medico = service.executar(medico_crm)
-
-        if medico is None:
-            return jsonify({"error": "Médico não encontrado."}), 404
-
-        
-
-        return jsonify(medico), 200
+    #@med_controller.get('/medicos/buscar/<string:medico_crm>')
+    #def buscar_medico_por_crm(medico_crm):
+    #
+    #    service = BuscarMedicoPorCRMService()
+    #    medico = service.executar(medico_crm)
+    #
+    #    if medico is None:
+    #        return jsonify({"error": "Médico não encontrado."}), 404
+    #        
+    #    return jsonify(medico), 200
 
     @med_controller.get('/medicos/buscar/formacao/<string:formacao>')
     def buscar_medico_por_formacao(formacao):
@@ -83,7 +80,6 @@ class MedicoController:
                 return jsonify("Logado com sucesso"), 200
             else:
                 return jsonify("Usuário ou Senha inválidos!!"), 401
-
             
         except ValueError as error:
             return jsonify({"error": str(error)}), 400

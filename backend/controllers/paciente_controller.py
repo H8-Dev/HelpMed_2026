@@ -35,16 +35,19 @@ class PacienteController:
             db.session.rollback()
             return jsonify({"error": "Erro ao cadastrar paciente."}), 500
 
-    @pac_controller.get('/pacientes/buscar/<string:paciente_cpf>')
-    def buscar_paciente_por_cpf(paciente_cpf):
-
-        service = BuscarPacCpfService()
-        paciente = service.executar(paciente_cpf)
-
-        if paciente is None:
-            return jsonify({"error": "Paciente não encontrado."}), 404
-
-        return jsonify(paciente), 200
+    #@pac_controller.get('/pacientes/buscar/<int:paciente_cpf>')
+    #def buscar_paciente_por_cpf(paciente_cpf):
+    #
+    #    cpf_limpo = f"{paciente_cpf}"
+    #    cpf_limpo = f"{cpf_limpo[:3]}.{cpf_limpo[3:6]}.{cpf_limpo[6:9]}-{cpf_limpo[9:]}"
+    #
+    #    service = BuscarPacCpfService()
+    #    paciente = service.executar(cpf_limpo)
+    #
+    #    if paciente is None:
+    #        return jsonify({"error": "Paciente não encontrado."}), 404
+    #
+    #    return jsonify(paciente), 200
 
     @pac_controller.post('/pacientes/login')
     def login_paciente():

@@ -4,29 +4,25 @@ from models.database import db
 from models.chat_model import Chat
 
 class ChatRepository:
-    @staticmethod
-    def buscar_chat_por_medico(med_id):
-        query = text("SELECT * FROM chats WHERE med_id = :med_id")
-        result = db.session.execute(query, {"med_id": med_id})
-        chat_data = result.mappings().all()
-        result.close()
-
-        return [Chat(**dict(chat)) for chat in chat_data]
 
     @staticmethod
-    def buscar_chat_por_paciente(pac_id):
-        query = text("SELECT * FROM chats WHERE pac_id = :pac_id")
-        result = db.session.execute(query, {"pac_id": pac_id})
-        chat_data = result.mappings().all()
-        result.close()
-
-        return [Chat(**dict(chat)) for chat in chat_data]
-
-    @staticmethod
-    def buscar_chats(id):
+    def buscar_chats_user(id):
         query = text("CALL sp_buscar_chats(:id)")
         result = db.session.execute(query, {"id": id})
         chat_data = result.mappings().all()
         result.close()
 
         return [Chat(**dict(chat)) for chat in chat_data]
+
+    @staticmethod
+    def criar_atendimento_previo(paciente):
+        query = text("CALL sp_atend_previo(:paciente)")
+        result = db.session.execute(query, {"paciente": paciente})
+        db.session.commit()
+        chat_data = result.mappings().first()
+        result.close()
+
+        if chat_data:
+            return True
+        else:
+            return False

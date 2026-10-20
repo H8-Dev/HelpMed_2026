@@ -12,7 +12,7 @@ class AtendimentoController:
     def check():
         return jsonify({"status": "ok"}), 200
 
-    @atend_controller.get('/chats/<string:id>')
+    @atend_controller.get('/chats/<int:id>')
     def get_chat_list(id):
 
         service = BuscarChatCodService()

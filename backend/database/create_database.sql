@@ -65,65 +65,74 @@ constraint p_med_id
 data_hora timestamp default current_timestamp not null
 ) engine = InnoDB;
 
-DELIMITER $
-CREATE TRIGGER chat_insert after insert on chat for each row
-BEGIN
-	update chat
-	set dados = json_set(dados, '$.id', last_insert_id())
-	where chat_id = last_insert_id();
-END$
-DELIMITER ;
 
 DROP PROCEDURE IF EXISTS sp_login_medico;
+DROP PROCEDURE IF EXISTS sp_login_paciente;
+DROP PROCEDURE IF EXISTS sp_buscar_chats;
+DROP PROCEDURE IF EXISTS sp_atend_previo;
 
 DELIMITER $
 CREATE PROCEDURE sp_login_medico(in param_crm varchar(15), in param_senha varchar(50))
 BEGIN
 	DECLARE var_senha_check varchar(50);
 
-	select senha into var_senha_check
-	from medicos
-	where crm = param_crm;
+	SELECT senha INTO var_senha_check
+	FROM medicos
+	WHERE crm = param_crm;
 
-	if var_senha_check = param_senha then
-		SELECT TRUE as check1;
-	else
-		SELECT FALSE as check1;
-	end if;
+	IF var_senha_check = param_senha THEN
+		SELECT TRUE AS check1;
+	ELSE
+		SELECT FALSE AS check1;
+	END IF;
 
 END $
-DELIMITER ;
 
-
-DROP PROCEDURE IF EXISTS sp_login_paciente;
-
-DELIMITER $
 CREATE PROCEDURE sp_login_paciente(in param_cpf varchar(15), in param_senha varchar(50))
 BEGIN
 	DECLARE var_senha_check varchar(50);
 
-	select senha into var_senha_check
-	from pacientes
-	where cpf = param_cpf;
+	SELECT senha INTO var_senha_check
+	FROM pacientes
+	WHERE cpf = param_cpf;
 
-	if var_senha_check = param_senha then
-		SELECT TRUE as check1;
-	else
-		SELECT FALSE as check1;
-	end if;
+	IF var_senha_check = param_senha THEN
+		SELECT TRUE AS check1;
+	ELSE
+		SELECT FALSE AS check1;
+	END IF;
 	
 END $
 
-DELIMITER ;
-
-DROP PROCEDURE IF EXISTS sp_buscar_chats;
-
-DELIMITER $
 CREATE PROCEDURE sp_buscar_chats(IN param_id BIGINT)
 BEGIN
 	
 	SELECT * FROM chat
 	WHERE CAST(REGEXP_REPLACE(c_pac_id, '[^0-9]', '') AS SIGNED) = param_id OR CAST(REGEXP_REPLACE(c_med_id, '[^0-9]', '') AS SIGNED) = param_id;
+
+END $
+
+CREATE PROCEDURE sp_atend_previo(IN param_id BIGINT)
+BEGIN
+	DECLARE var_check varchar(14);
+	DECLARE var_name varchar(50);
+
+    START TRANSACTION;
+
+	SELECT cpf, nome INTO var_check, var_name
+	FROM pacientes
+	WHERE CAST(REGEXP_REPLACE(cpf, '[^0-9]', '') AS SIGNED) = param_id;
+
+	INSERT INTO chat (dados, c_pac_id) VALUES ( JSON_OBJECT('id', NULL, 'pat_name', var_name, 'doc_name', NULL, 'avatar', 'P', 'avatarClass', '', 'messages', JSON_ARRAY(JSON_OBJECT()) ), var_check);
+
+	IF var_check IS NULL THEN
+		ROLLBACK;
+	ELSE
+		UPDATE CHAT
+        SET dados = json_set(dados, '$.id', last_insert_id())
+        WHERE chat_id = last_insert_id();
+		COMMIT;
+	END IF;
 
 END $
 DELIMITER ;
