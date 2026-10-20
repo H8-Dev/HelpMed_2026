@@ -25,6 +25,12 @@
     --bubble-doctor-bg: #d5e8cf;
     --bubble-doctor-text: #263821;
 }
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
 * {
     margin: 0;
     padding: 0;

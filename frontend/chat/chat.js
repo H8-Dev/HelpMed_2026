@@ -1,7 +1,7 @@
 /**
  * Global App State
  */
-let currentProfile = localStorage.getItem("profile"); // 'DOCTOR' or 'PATIENT'
+const currentProfile = localStorage.getItem("profile"); // 'DOCTOR' or 'PATIENT'
 let activeChatId = null;
 let useRealFlaskBackend = false; // Auto-detected or switched
 const FLASK_API_BASE = 'http://127.0.0.1:5000/chats';
@@ -11,7 +11,7 @@ const FLASK_API_BASE = 'http://127.0.0.1:5000/chats';
 const mockDatabase = {
     doctor_chats: [
         {
-            id: 'doc_pat_1',
+            chat_id: 'doc_pat_1',
             name: 'João Silva',
             avatar: 'P',
             avatarClass: '',
@@ -22,7 +22,7 @@ const mockDatabase = {
             ]
         },
         {
-            id: 'doc_pat_2',
+            chat_id: 'doc_pat_2',
             name: 'Maria Oliveira',
             avatar: 'P',
             avatarClass: '',
@@ -32,7 +32,7 @@ const mockDatabase = {
             ]
         },
         {
-            id: 'doc_pat_3',
+            chat_id: 'doc_pat_3',
             name: 'Carlos Souza',
             avatar: 'P',
             avatarClass: '',
@@ -44,7 +44,7 @@ const mockDatabase = {
     ],
     patient_chats: [
         {
-            id: 'pat_ia',
+            chat_id: 'pat_ia',
             name: 'Atendente Virtual - HelpMed',
             avatar: 'IA',
             avatarClass: 'ia-avatar',
@@ -60,7 +60,7 @@ const mockDatabase = {
             ]
         },
         {
-            id: 'pat_doc_1',
+            chat_id: 'pat_doc_1',
             name: 'Dr. Roberto Andrade',
             avatar: 'D',
             avatarClass: 'doctor-avatar',
@@ -70,7 +70,7 @@ const mockDatabase = {
             ]
         },
         {
-            id: 'pat_doc_2',
+            chat_id: 'pat_doc_2',
             name: 'Dra. Camila Silva',
             avatar: 'D',
             avatarClass: 'doctor-avatar',
@@ -89,7 +89,7 @@ const ApiService = {
     async fetchConversations() {
         if (useRealFlaskBackend) {
             try {
-                const res = await fetch(`${FLASK_API_BASE}/${parseInt(localStorage.getItem("id").replace(/[^0-9]/g, ""))}`, { method: 'GET' });
+                const res = await fetch(`${FLASK_API_BASE}/${parseInt(localStorage.getItem("id").replace(/[^0-9]/g, ""))}`);
                 if (res.ok) return await res.json();
             } catch (err) {
                 console.warn("Flask Backend unavailable, using local mock API persistence.");
@@ -99,22 +99,16 @@ const ApiService = {
         }
         
         // Fallback Mock API simulation
-        return roleParam === 'doctor' ? mockDatabase.doctor_chats : mockDatabase.patient_chats;
+        return currentProfile === 'DOCTOR' ? mockDatabase.doctor_chats : mockDatabase.patient_chats;
     },
 
-    async fetchMessages(chatId) {
-        if (useRealFlaskBackend) {
-            try {
-                const res = await fetch(`${FLASK_API_BASE}/messages/${chatId}`);
-                if (res.ok) return await res.json();
-            } catch (err) {
-                console.warn("Error fetching from Flask Backend.");
-            }
+    async fetchMessages(messages) {
+        if (!messages) return [];
+        // Se já for um array, retorna ele diretamente de forma segura
+        if (Array.isArray(messages)) {
+            return [...messages];
         }
-        // Fallback Mock search
-        const allChats = [...mockDatabase.doctor_chats, ...mockDatabase.patient_chats];
-        const found = allChats.find(c => c.id === chatId);
-        return found ? found.messages : [];
+        return [];
     },
 
     async postMessage(chatId, messageObj) {
@@ -132,7 +126,7 @@ const ApiService = {
         }
         // Fallback Mock Persistence
         const allChats = [...mockDatabase.doctor_chats, ...mockDatabase.patient_chats];
-        const found = allChats.find(c => c.id === chatId);
+        const found = allChats.find(c => c.chat_id === chatId);
         if (found) {
             found.messages.push(messageObj);
             saveMockStateToStorage();
@@ -166,21 +160,15 @@ function loadMockStateFromStorage() {
 }
 
 async function applyProfileUI() {
-    const btnText = document.getElementById('profile-btn-text');
     const avatarBottom = document.getElementById('user-avatar-bottom');
     const navForms = document.getElementById('nav-forms');
     const navAi = document.getElementById('nav-ai');
-    const labPerfil = document.getElementById('profile-label');
     if (currentProfile === 'DOCTOR') {
-        labPerfil.textContent = 'Perfil Ativo: Médico';
-        btnText.textContent = 'Alternar para Paciente';
         avatarBottom.textContent = 'M';
         avatarBottom.style.backgroundColor = 'var(--avatar-doctor-bg)';
         navForms.style.display = 'flex';
         navAi.style.display = 'flex';
     } else {
-        labPerfil.textContent = 'Perfil Ativo: Paciente';
-        btnText.textContent = 'Alternar para Médico';
         avatarBottom.textContent = 'P';
         avatarBottom.style.backgroundColor = 'var(--avatar-patient-bg)';
         navForms.style.display = 'none';
@@ -194,32 +182,53 @@ async function renderConversationsList() {
     const listEl = document.getElementById('conversations-list');
     listEl.innerHTML = '';
     const availableChats = await ApiService.fetchConversations();
+    
     if (availableChats && availableChats.length > 0) {
-
-        // Ensure active Chat ID is valid for current view
-        const isValidActive = availableChats.some(c => c.id === activeChatId);
+        const isValidActive = availableChats.some(c => {
+            const chatId = c.chat_id || (typeof c.dados === 'string' ? JSON.parse(c.dados).id : c.dados?.id);
+            return chatId === activeChatId;
+        });
         if (!isValidActive) {
-            activeChatId = availableChats[0].id;
+            const first = availableChats[0];
+            activeChatId = first.chat_id || (typeof first.dados === 'string' ? JSON.parse(first.dados).id : first.dados?.id);
         }
     } else {
         activeChatId = null;
     }
 
     availableChats.forEach(chat => {
+        // CORREÇÃO CRUCIAL: Se 'chat.dados' for uma string, transformamos em objeto com JSON.parse()
+        let dadosObj = chat.dados;
+        if (typeof dadosObj === 'string') {
+            try {
+                dadosObj = JSON.parse(dadosObj);
+            } catch (e) {
+                dadosObj = {};
+            }
+        }
+
+        // Se dadosObj não existir na raiz, usa o próprio chat (para o mock local)
+        const info = dadosObj || chat;
+        const chatId = chat.chat_id || info.id;
+
         const li = document.createElement('li');
-        li.className = `patient-item ${chat.id === activeChatId ? 'active' : ''}`;
-        li.onclick = () => selectChat(chat.id);
-        const lastMsgObj = chat.messages && chat.messages.length > 0 ? chat.messages[chat.messages.length - 1] : null;
+        li.className = `patient-item ${chatId === activeChatId ? 'active' : ''}`;
+        li.onclick = () => selectChat(chatId);
+
+        const chatMessages = info.messages || [];
+        const lastMsgObj = chatMessages.length > 0 ? chatMessages[chatMessages.length - 1] : null;
         const lastMsgText = lastMsgObj ? lastMsgObj.text : '';
+
         li.innerHTML = `
-            <div class="patient-avatar ${chat.avatarClass || ''}">${chat.avatar}</div>
+            <div class="patient-avatar ${info.avatarClass || ''}">${info.avatar || 'P'}</div>
             <div class="patient-info">
-                <span class="patient-name">${chat.name}</span>
+                <span class="patient-name">${info.name || 'Conversa'}</span>
                 <span class="patient-last-msg">${lastMsgText}</span>
             </div>
         `;
         listEl.appendChild(li);
     });
+
     await renderActiveChat();
 }
 
@@ -232,71 +241,69 @@ async function selectChat(chatId) {
 async function renderActiveChat() {
     if (!activeChatId) return;
     const chats = await ApiService.fetchConversations();
-    const chat = chats.find(c => c.id === activeChatId);
+    const chat = chats.find(c => {
+        const id = c.chat_id || (typeof c.dados === 'string' ? JSON.parse(c.dados).id : c.dados?.id);
+        return id === activeChatId;
+    });
     if (!chat) return;
 
-    // Header Elements update
+    // Converte a string 'dados' do banco em objeto JavaScript, se necessário
+    let dadosObj = chat.dados;
+    if (typeof dadosObj === 'string') {
+        try {
+            dadosObj = JSON.parse(dadosObj);
+        } catch (e) {
+            dadosObj = {};
+        }
+    }
 
+    const info = dadosObj || chat; 
+
+    // Header Elements update
     const headerAvatar = document.getElementById('chat-header-avatar');
     const headerName = document.getElementById('chat-header-name');
-    headerAvatar.className = `chat-patient-avatar ${chat.avatarClass || ''}`;
-    headerAvatar.textContent = chat.avatar;
-    headerName.textContent = chat.name;
+    
+    headerAvatar.className = `chat-patient-avatar ${info.avatarClass || ''}`;
+    headerAvatar.textContent = info.avatar || 'P';
+    headerName.textContent = currentProfile === 'PATIENT' ? (info.doc_name || info.name) : (info.pac_name || info.name);
 
     // Messages Container update
-
     const messagesContainer = document.getElementById('chat-messages-container');
     messagesContainer.innerHTML = '';
 
-    // Fetch dynamic chat messages from backend/API
-    
-    const messages = await ApiService.fetchMessages(activeChatId);
+    const rawMessages = info.messages || [];
+    const messages = await ApiService.fetchMessages(rawMessages);
 
-    // Render Messages
-    messages.forEach(msg => {
-        const msgDiv = document.createElement('div');
-        if (msg.type === 'info_card') {
-            msgDiv.className = 'message ia-message';
-            msgDiv.innerHTML = `
-                <div class="message-avatar ia-avatar">IA</div>
-                <div class="info-card-bubble">${msg.text}</div>
-            `;
-        } else if (msg.type === 'ia') {
-            msgDiv.className = 'message ia-message';
-            msgDiv.innerHTML = `
-                <div class="message-avatar ia-avatar">IA</div>
-                <div class="message-bubble ia-bubble">${msg.text}</div>
-            `;
-        } else if (msg.type === 'patient') {
-            msgDiv.className = 'message patient-message';
-            msgDiv.innerHTML = `
-                <div class="message-avatar">P</div>
-                <div class="message-bubble patient-bubble">${msg.text}</div>
-            `;
-        } else if (msg.type === 'doctor') {
-            msgDiv.className = 'message patient-message';
-            msgDiv.innerHTML = `
-                <div class="message-avatar doctor-avatar">D</div>
-                <div class="message-bubble ia-bubble">${msg.text}</div>
-            `;
-        } else if (msg.type === 'doctor_sent') {
-            msgDiv.className = 'message sent-message';
-            msgDiv.innerHTML = `
-                <div class="message-avatar doctor-avatar">M</div>
-                <div class="message-bubble doctor-sent-bubble">${msg.text}</div>
-            `;
-        } else if (msg.type === 'patient_sent') {
-            msgDiv.className = 'message sent-message';
-            msgDiv.innerHTML = `
-                <div class="message-avatar">P</div>
-                <div class="message-bubble patient-sent-bubble">${msg.text}</div>
-            `;
-        }
-        messagesContainer.appendChild(msgDiv);
-    });
-    // Auto-scroll to latest message
+    if (messages && Array.isArray(messages)) {
+        messages.forEach(msg => {
+            const msgDiv = document.createElement('div');
+            // Mantém a sua lógica original de renderização de tipos de mensagens
+            if (msg.type === 'info_card') {
+                msgDiv.className = 'message ia-message';
+                msgDiv.innerHTML = `<div class="message-avatar ia-avatar">IA</div><div class="info-card-bubble">${msg.text}</div>`;
+            } else if (msg.type === 'ia') {
+                msgDiv.className = 'message ia-message';
+                msgDiv.innerHTML = `<div class="message-avatar ia-avatar">IA</div><div class="message-bubble ia-bubble">${msg.text}</div>`;
+            } else if (msg.type === 'patient') {
+                msgDiv.className = 'message patient-message';
+                msgDiv.innerHTML = `<div class="message-avatar">P</div><div class="message-bubble patient-bubble">${msg.text}</div>`;
+            } else if (msg.type === 'doctor') {
+                msgDiv.className = 'message patient-message';
+                msgDiv.innerHTML = `<div class="message-avatar doctor-avatar">D</div><div class="message-bubble ia-bubble">${msg.text}</div>`;
+            } else if (msg.type === 'doctor_sent') {
+                msgDiv.className = 'message sent-message';
+                msgDiv.innerHTML = `<div class="message-avatar doctor-avatar">M</div><div class="message-bubble doctor-sent-bubble">${msg.text}</div>`;
+            } else if (msg.type === 'patient_sent') {
+                msgDiv.className = 'message sent-message';
+                msgDiv.innerHTML = `<div class="message-avatar">P</div><div class="message-bubble patient-sent-bubble">${msg.text}</div>`;
+            }
+            messagesContainer.appendChild(msgDiv);
+        });
+    }
+
     messagesContainer.scrollTop = messagesContainer.scrollHeight;
 }
+
 function handleKeyPress(e) {
     if (e.key === 'Enter') {
         sendMessage();

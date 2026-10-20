@@ -16,11 +16,6 @@
     <!-- Profile & Backend Switcher Bar -->
     <div class="profile-switcher-bar">
         <span class="status-badge" id="backend-status">API: Mock Local</span>
-        <label id="profile-label">Perfil Ativo:</label>
-        <button class="switch-btn" id="toggle-profile-btn" onclick="toggleProfile()">
-            <i class="fas fa-user-md"></i>
-            <span id="profile-btn-text">Alternar para Paciente</span>
-        </button>
     </div>
 
     <!-- Navigation Sidebar -->
@@ -31,14 +26,14 @@
             </a>
         </div>
         
-        <div class="nav-icon active" title="Conversas"><i class="fas fa-comments"></i></div>
-        <div class="nav-icon" title="Documentos"><i class="fas fa-folder"></i></div>
+        <div class="nav-icon active" title="Conversas"><a href="/chat/chat.html"><i class="fas fa-comments"></i></a></div>
+        <div class="nav-icon" title="Documentos"><a href="/arq_lib/biblioteca.html"><i class="fas fa-folder"></i></a></div>
         
         <!-- Role-based conditionally rendered menu options -->
         <div class="nav-icon doctor-only-nav" id="nav-forms" title="Formulários / Prontuários"><i class="fas fa-clipboard-list"></i></div>
         <div class="nav-icon doctor-only-nav" id="nav-ai" title="Módulo IA Diagnóstico"><i class="fas fa-brain"></i></div>
         
-        <div class="avatar-bottom" id="user-avatar-bottom">M</div>
+        <div class="avatar-bottom" id="user-avatar-bottom"><a href="/config/configuracoes.html">M</a></div>
     </aside>
 
     <!-- Dynamic Conversations Panel -->
