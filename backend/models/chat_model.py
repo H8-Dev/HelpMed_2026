@@ -23,5 +23,5 @@ class Chat(db.Model):
             "dados": self.dados,
             "c_pac_id": self.c_pac_id,
             "c_med_id": self.c_med_id,
-            "last_update": self.last_update.isoformat() if self.last_update else None
+            "last_update": self.last_update
         }
