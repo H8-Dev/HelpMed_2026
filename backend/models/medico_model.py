@@ -10,23 +10,22 @@ class Medico(db.Model):
     sobrenome = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     formacao = db.Column(db.String(100), nullable=False)
+    ativo = db.Column(db.Boolean, nullable=False, default=True)
     data_create = db.Column(db.TIMESTAMP, nullable=False)
 
     def salvar(self):
         db.session.add(self)
         db.session.commit()
 
-    def atualizar(self, senha=None, nome=None, sobrenome=None, email=None, formacao=None):
+    def atualizar(self, senha=None, email=None, formacao=None, ativo=None):
         if senha is not None:
             self.senha = senha
-        if nome is not None:
-            self.nome = nome
-        if sobrenome is not None:
-            self.sobrenome = sobrenome
         if email is not None:
             self.email = email
         if formacao is not None:
             self.formacao = formacao
+        if ativo is not None:
+            self.ativo = ativo
         
         db.session.commit()
 

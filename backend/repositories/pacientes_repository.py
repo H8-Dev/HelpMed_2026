@@ -22,3 +22,17 @@ class PacientesRepository:
                 else_=False
             ).label("check").filter(Paciente.cpf == cpf)
         }
+
+    @staticmethod
+    def buscar_cpf(cpf):
+         banco = db.session.get_bind().dialect.name
+
+         if banco == "mysql":
+            query = text("SELECT * FROM pacientes WHERE CAST(REGEXP_REPLACE(cpf, '[^0-9]', '') AS SIGNED) = :cpf")
+            result = db.session.execute(query, {"cpf": cpf})
+            paciente = result.mappings().all()
+            result.close()
+            if not paciente:
+                return False
+            return True
+         

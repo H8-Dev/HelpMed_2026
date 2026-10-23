@@ -2,27 +2,27 @@ from models.medico_model import Medico
 from repositories.medicos_repository import MedicosRepository
 
 class UpdateMedicoService:
-    def executar(self, medico_crm, dados):
-        medico = Medico.buscar_crm(medico_crm)
+    def executar(self, crm, dados):
+        medico = Medico.buscar_crm(crm)
         if not medico:
-            return None
-
-        required = ["senha", "nome", "sobrenome", "email"]
-
-        for item in required:
-            if not dados.get(item):
-                raise ValueError(f"O campo {item} é obrigatório!")
+            raise ValueError("Médico não existe.")
 
         email_existente = MedicosRepository.buscar_email(dados["email"])
         if email_existente:
-            raise ValueError("Email já cadastrado.") 
+            if email_existente.crm != medico.crm:
+                raise ValueError("Email já cadastrado.")
+
+        senha = dados.get("senha")
+        if senha is "":
+            senha = None
+        formacao = dados.get("formacao")
+        if formacao is "":
+            formacao = None
 
         medico.atualizar(
-            senha=dados.get("senha"),
-            nome=dados.get("nome"),
-            sobrenome=dados.get("sobrenome"),
+            senha=senha,
             email=dados.get("email"),
-            formacao=dados.get("formacao"),
+            formacao=formacao,
         )
 
         return medico.to_dict()

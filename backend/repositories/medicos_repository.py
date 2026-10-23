@@ -22,7 +22,7 @@ class MedicosRepository:
         banco = db.session.get_bind().dialect.name
 
         if banco == "mysql":
-            query = text("SELECT * FROM medicos WHERE email = :email")
+            query = text("SELECT email FROM medicos WHERE email = :email")
             result = db.session.execute(query, {"email": email})
             medicos = result.mappings().all()
             result.close()
@@ -48,3 +48,13 @@ class MedicosRepository:
                 else_=False
             ).label("check").filter(Medico.crm == crm)
         }
+    
+    @staticmethod
+    def buscar_crm(crm):
+        banco = db.session.get_bind().dialect.name
+        if banco == "mysql":
+            query = text("SELECT * FROM medicos WHERE CAST(REGEXP_REPLACE(crm, '[^0-9]', '') AS SIGNED) = :crm")
+            result = db.session.execute(query, {"crm": crm})
+            medico = result.mappings().all()
+            result.close()
+            return Medico(**dict(medico.lower))

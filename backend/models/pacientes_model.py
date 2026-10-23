@@ -1,4 +1,5 @@
 from .database import db
+import re
 
 class Paciente(db.Model):
     __tablename__ = "pacientes"
@@ -8,13 +9,14 @@ class Paciente(db.Model):
     nome = db.Column(db.String(50), nullable=False)
     sobrenome = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
+    ativo = db.Column(db.Boolean, nullable=False)
     data_create = db.Column(db.TIMESTAMP, nullable=False)
 
     def salvar(self):
         db.session.add(self)
         db.session.commit()
 
-    def atualizar(self, senha=None, nome=None, sobrenome=None, email=None):
+    def atualizar(self, senha=None, nome=None, sobrenome=None, email=None, ativo=None):
         if senha is not None:
             self.senha = senha
         if nome is not None:
@@ -23,6 +25,8 @@ class Paciente(db.Model):
             self.sobrenome = sobrenome
         if email is not None:
             self.email = email
+        if ativo is not None:
+            self.ativo = ativo
         
         db.session.commit()
 
@@ -33,7 +37,16 @@ class Paciente(db.Model):
 
     @staticmethod
     def buscar_cpf(cpf):
+        if "." not in str(cpf):
+            cpf = str(cpf).zfill(11)
+            cpf = re.sub(r"(\d{3})(\d{3})(\d{3})(\d{2})", r"\1.\2.\3-\4", cpf)
+            return Paciente.query.filter_by(cpf=cpf).first()
+
         return Paciente.query.filter_by(cpf=cpf).first()
+
+    @staticmethod
+    def buscar_email(email):
+        return Paciente.query.filter_by(email=email).first()
 
     def to_dict(self):
         return {

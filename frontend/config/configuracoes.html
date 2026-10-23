@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HelpMed - Configurações</title>
+  <link rel="stylesheet" href="configuracoes.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="configuracoes.js" defer></script>
+</head>
+<body>
+
+  <!-- BARRA LATERAL FIXA DA PLATAFORMA -->
+  <aside class="sidebar-app">
+    <div class="sidebar-top">
+      <a href="/home/home.html" class="sidebar-logo" title="HelpMed">
+        <img src="/assets/logo.png" alt="Logo HelpMed" />
+      </a>
+      <nav class="sidebar-menu">
+        <a href="/chat/chat.html" class="nav-item" title="Mensagens">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+        </a>
+        <a href="/arq_lib/biblioteca.html" class="nav-item" title="Prontuários">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+        </a>
+      </nav>
+    </div>
+    <div class="sidebar-bottom">
+      <div class="user-avatar" id="userAvatar">
+        <a href="/config/configuracoes.html">M</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- CONTAINER PRINCIPAL DE CONFIGURAÇÕES -->
+  <div class="settings-wrapper">
+    
+    <!-- ABA LATERAL FIXA DE SELEÇÃO DE SEÇÃO -->
+    <aside class="settings-sidebar">
+      <h2 class="settings-title">Configurações</h2>
+      <nav class="settings-tabs">
+        <button class="tab-btn active" data-tab="tab-perfil">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Perfil
+        </button>
+        <button class="tab-btn" data-tab="tab-termos">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+          Termos Legais
+        </button>
+        <button class="tab-btn" data-tab="tab-dados">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+          Dados da Conta
+        </button>
+      </nav>
+
+      <!-- SIMULADOR DE PERFIL (BOOLEANA MÉDICO/PACIENTE) -->
+      <div class="role-toggle-container">
+        <span class="toggle-label">Modo Teste:</span>
+        <button id="btnToggleRole" class="btn-role-toggle">Alternar p/ Médico</button>
+      </div>
+    </aside>
+
+    <!-- CONTEÚDO DAS ABAS -->
+    <main class="settings-content">
+      
+      <!-- 1. ABA PERFIL (PADRÃO SELECIONADA) -->
+      <section id="tab-perfil" class="tab-panel active">
+        <div class="panel-header">
+          <h3>Perfil de Usuário</h3>
+          <span class="user-badge" id="roleBadge">Paciente</span>
+        </div>
+
+        <form class="settings-form" id="formPerfil" onsubmit="event.preventDefault();">
+          
+          <!-- CAMPO EMAIL -->
+          <div class="form-group">
+            <label for="inputEmail">E-mail</label>
+            <input type="email" id="inputEmail" placeholder="Email" value=""/>
+          </div>
+
+          <!-- CAMPO SENHA -->
+          <div class="form-group">
+            <label for="inputSenha">Nova Senha</label>
+            <input type="password" id="inputSenha" placeholder="Digite uma nova senha..." />
+            <label for="inputConfirm">Confirme a Nova Senha</label>
+            <input type="password" id="inputConfirm" placeholder="Digite novamente a nova senha...">
+          </div>
+
+          <!-- CAMPO FORMAÇÃO (EXCLUSIVO DO MÉDICO) -->
+          <div class="form-group doctor-only" id="groupFormacao">
+            <label for="inputFormacao">Formação / Especialização</label>
+            <input type="text" id="inputFormacao" placeholder="Ex: Cardiologia - CRM 123456/SP" value="Cardiologia e Medicina Preventiva" />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn-primary" id="btnPerfil">Salvar Alterações</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- 2. ABA TERMOS LEGAIS -->
+      <section id="tab-termos" class="tab-panel">
+        <div class="panel-header">
+          <h3>Termos Legais e Privacidade</h3>
+        </div>
+
+        <div class="terms-grid">
+          <!-- CONTAINER 1: TERMO DE USO -->
+          <div class="term-card">
+            <div class="term-info">
+              <h4>Termo de Uso</h4>
+              <p>Diretrizes sobre o uso da plataforma HelpMed, responsabilidade de dados e conduta do usuário.</p>
+            </div>
+            <button class="btn-secondary btn-open-modal" data-term="uso">Exibir Termo</button>
+          </div>
+
+          <!-- CONTAINER 2: TERMO DE CONSENTIMENTO -->
+          <div class="term-card">
+            <div class="term-info">
+              <h4>Termo de Consentimento</h4>
+              <p>Autorização para processamento seguro de dados médicos, prontuários e agendamento de consultas.</p>
+            </div>
+            <button class="btn-secondary btn-open-modal" data-term="consentimento">Exibir Termo</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. ABA DADOS DA CONTA -->
+      <section id="tab-dados" class="tab-panel">
+        <div class="panel-header">
+          <h3>Gerenciamento de Dados da Conta</h3>
+        </div>
+
+        <div class="data-management-container">
+          
+          <!-- OPÇÃO 1: EXPORTAR DADOS POR EMAIL (GET FETCH) -->
+          <div class="data-action-card">
+            <div class="action-details">
+              <h4>Receber Dados da Conta por E-mail</h4>
+              <p>Enviaremos um relatório completo com todas as suas informações cadastradas para o seu e-mail.</p>
+            </div>
+            <button id="btnExportData" class="btn-primary">
+              <span>Enviar para E-mail</span>
+            </button>
+          </div>
+
+          <!-- OPÇÃO 2: DELETAR TODOS OS DADOS (GET FETCH) -->
+          <div class="data-action-card danger-zone">
+            <div class="action-details">
+              <h4>Excluir Todos os Dados da Conta</h4>
+              <p>Atenção: Esta ação é irreversível. Todos os seus registros e histórico serão permanentemente excluídos.</p>
+            </div>
+            <button id="btnDeleteData" class="btn-danger">
+              <span>Deletar Todos os Dados</span>
+            </button>
+          </div>
+
+          <!-- FEEDBACK DE STATUS DAS REQUISIÇÕES -->
+          <div id="apiStatusMessage" class="status-message"></div>
+
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- POP-UP MODAL PARA TERMOS LEGAIS -->
+  <div id="termsModal" class="modal-overlay">
+    <div class="modal-content">
+      <header class="modal-header">
+        <h3 id="modalTitle">Título do Termo</h3>
+        <button id="btnCloseModal" class="btn-close-modal" title="Fechar">&times;</button>
+      </header>
+      <div class="modal-body" id="modalBodyText">
+        <!-- Conteúdo dinâmico via JS -->
+      </div>
+      <footer class="modal-footer">
+        <button id="btnCloseModalFooter" class="btn-secondary">Fechar</button>
+      </footer>
+    </div>
+  </div>
+
+</body>
+</html>
