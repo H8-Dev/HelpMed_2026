@@ -9,7 +9,7 @@ class Paciente(db.Model):
     nome = db.Column(db.String(50), nullable=False)
     sobrenome = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    ativo = db.Column(db.Boolean, nullable=False)
+    ativo = db.Column(db.Boolean, nullable=False, default=True)
     data_create = db.Column(db.TIMESTAMP, nullable=False)
 
     def salvar(self):

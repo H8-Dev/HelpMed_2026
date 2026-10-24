@@ -110,7 +110,7 @@ END $
 CREATE PROCEDURE sp_buscar_chats(IN param_id BIGINT)
 BEGIN
 	
-	SELECT * FROM chat
+	SELECT * FROM chats
 	WHERE CAST(REGEXP_REPLACE(c_pac_id, '[^0-9]', '') AS SIGNED) = param_id OR CAST(REGEXP_REPLACE(c_med_id, '[^0-9]', '') AS SIGNED) = param_id;
 
 END $
@@ -126,7 +126,7 @@ BEGIN
 	FROM pacientes
 	WHERE CAST(REGEXP_REPLACE(cpf, '[^0-9]', '') AS SIGNED) = param_id;
 
-	INSERT INTO chats (dados, c_pac_id) VALUES ( JSON_OBJECT('id', NULL, 'pat_name', var_name, 'doc_name', NULL, 'avatar', 'P', 'avatarClass', '', 'messages', JSON_ARRAY(JSON_OBJECT()) ), var_check);
+	INSERT INTO chats (dados, c_pac_id) VALUES ( JSON_OBJECT('id', NULL, 'name', var_name, 'avatar', 'IA', 'avatarClass', 'ia-avatar', 'messages', JSON_ARRAY(JSON_OBJECT('text', 'Olá! Eu sou a Atendente Virtual da HelpMed e estou aqui para ajudar você com suas dores. Por favor informe a seguir o que você está sentindo para que você seja direcionado a um profissional da saúde o mais rápido possível.', 'type', 'ia', 'avatar', 'IA', 'sender', 'IA')) ), var_check);
 
 	IF var_check IS NULL THEN
 		ROLLBACK;
@@ -136,6 +136,8 @@ BEGIN
         WHERE chat_id = last_insert_id();
 		COMMIT;
 	END IF;
+
+	SELECT * FROM chats WHERE chat_id = last_insert_id();
 
 END $
 DELIMITER ;

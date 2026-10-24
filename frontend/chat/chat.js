@@ -5,6 +5,7 @@ const currentProfile = localStorage.getItem("profile"); // 'DOCTOR' or 'PATIENT'
 let activeChatId = null;
 let useRealFlaskBackend = false; // Auto-detected or switched
 const FLASK_API_BASE = 'http://127.0.0.1:5000/chats';
+const btnNew = document.getElementById("btnNew")
 /**
  * Fallback In-Memory Mock Flask Database & Backend Simulation
  */
@@ -113,11 +114,12 @@ const ApiService = {
 
     async postMessage(chatId, messageObj) {
         if (useRealFlaskBackend) {
+            
             try {
                 const res = await fetch(`${FLASK_API_BASE}/messages`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chatId, message: messageObj })
+                    body: JSON.stringify({ id: chatId, message: messageObj, type: type })
                 });
                 if (res.ok) return await res.json();
             } catch (err) {
@@ -341,8 +343,24 @@ async function sendMessage() {
             await ApiService.postMessage(activeChatId, aiReply);
             await renderConversationsList();
         }, 1000);
-    }
+    }    
 }
+
+btnNew.addEventListener('click', async() => {
+    try{
+        const dados = {id: parseInt(localStorage.getItem("id").replace(/[^0-9]/g, ""))}
+        const response = await fetch(`${FLASK_API_BASE}/previo`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(dados)
+        })
+        if (response.ok){
+            await renderConversationsList();
+        }}
+    catch (err){
+        console.log("Erro no servidor.")
+    }
+});
 /**
  * Initialization Procedure
  */

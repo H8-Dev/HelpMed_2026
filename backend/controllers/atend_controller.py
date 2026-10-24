@@ -14,11 +14,13 @@ class AtendimentoController:
 
     @atend_controller.get('/chats/<int:id>')
     def get_chat_list(id):
+        try:
+            service = BuscarChatCodService()
+            chats = service.executar(id)
 
-        service = BuscarChatCodService()
-        chats = service.executar(id)
-        
-        return jsonify(chats), 200
+            return jsonify(chats), 200
+        except ValueError:
+            return jsonify({"error": "Erro."}), 500
 
 ## @atend_controller.post('/chats')
 ## def gerarAtend(paciente, medico, av):

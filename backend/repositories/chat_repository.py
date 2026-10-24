@@ -15,14 +15,11 @@ class ChatRepository:
         return [Chat(**dict(chat)) for chat in chat_data]
 
     @staticmethod
-    def criar_atendimento_previo(paciente):
-        query = text("CALL sp_atend_previo(:paciente)")
-        result = db.session.execute(query, {"paciente": paciente})
+    def criar_atendimento_previo(id):
+        query = text("CALL sp_atend_previo(:id)")
+        result = db.session.execute(query, {"id": id})
         db.session.commit()
         chat_data = result.mappings().first()
         result.close()
 
-        if chat_data:
-            return True
-        else:
-            return False
+        return [Chat(**dict(chat)) for chat in chat_data]

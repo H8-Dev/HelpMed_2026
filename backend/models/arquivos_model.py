@@ -9,6 +9,7 @@ class Arquivo(db.Model):
     dados = db.Column(db.LargeBinary(length=(2**32)-1), nullable=False)
     a_pac_id = db.Column(db.String(14), db.ForeignKey('pacientes.cpf', ondelete='CASCADE'), nullable=False)
     a_med_id = db.Column(db.String(15), db.ForeignKey('medicos.crm'))
+    ativo = db.Column(db.Boolean, nullable=False, default=True)
     last_update = db.Column(db.TIMESTAMP, nullable=False)
 
     def salvar(self):

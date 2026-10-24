@@ -163,7 +163,7 @@ body {
 .patient-list {
     list-style: none;
     overflow-y: auto;
-    flex: 1;
+    flex: 0.;
 }
 .patient-item {
     display: flex;
@@ -220,6 +220,28 @@ body {
     text-overflow: ellipsis;
     margin-top: 2px;
 }
+
+#btnNew {
+  padding: 10px 22px;
+  background-color: #919490;
+  color: #ffffff;
+  width: 75%;
+  border: none;
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  align-self: center;
+  margin-top: 15px
+}
+
+#btnNew:hover {
+  background-color: #666;
+  transform: translateY(-1px);
+}
+
 /* Chat Area */
 .chat-area {
     flex: 1;
