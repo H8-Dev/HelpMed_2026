@@ -8,8 +8,9 @@ const campoSobrenome = document.querySelector("#sobrenome");
 const campoEmail = document.querySelector("#email");
 
 if (form){
-    form.addEventListener('submit', function(event){
+    form.addEventListener('submit', async function(event){
         event.preventDefault();
+        await cadastrarPaciente();
     });
 } else {
     console.log("Falhou.")

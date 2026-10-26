@@ -11,8 +11,9 @@ const campoFormacao = document.querySelector("#formacao");
 
 
 if (form){
-    form.addEventListener('submit', function(event){
+    form.addEventListener('submit', async function(event){
         event.preventDefault();
+        await cadastrarMedico();
     });
 } else {
     console.log("Falhou.")
