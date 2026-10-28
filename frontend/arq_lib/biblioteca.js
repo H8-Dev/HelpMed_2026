@@ -182,7 +182,7 @@ document.addEventListener('DOMContentLoaded', () => {
            body: JSON.stringify(newFile)
          });
         if (response.ok) {
-           await loadLibrary();
+           loadLibrary();
          } else {
            throw new Error('Erro no POST');
          }

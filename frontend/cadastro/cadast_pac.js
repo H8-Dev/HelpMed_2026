@@ -1,6 +1,6 @@
 const API_URL = "http://127.0.0.1:5000/pacientes/cadastrar";
 
-const form = document.querySelector(".login-form");
+const form = document.getElementById("form-paciente");
 const pacId = document.querySelector("#cpf")
 const campoSenha = document.querySelector("#senha");
 const campoNome = document.querySelector("#nome");

@@ -119,7 +119,7 @@ const ApiService = {
                 const res = await fetch(`${FLASK_API_BASE}/messages`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: chatId, message: messageObj, type: type })
+                    body: JSON.stringify({ id: chatId, message: messageObj })
                 });
                 if (res.ok) return await res.json();
             } catch (err) {
@@ -348,14 +348,14 @@ async function sendMessage() {
 
 btnNew.addEventListener('click', async() => {
     try{
-        const dados = {id: parseInt(localStorage.getItem("id").replace(/[^0-9]/g, ""))}
+        const dados = {id: parseInt(localStorage.getItem("id").replace(/[^0-9]/g, ""))};
         const response = await fetch(`${FLASK_API_BASE}/previo`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(dados)
         })
         if (response.ok){
-            await renderConversationsList();
+            renderConversationsList();
         }}
     catch (err){
         console.log("Erro no servidor.")

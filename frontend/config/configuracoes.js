@@ -190,8 +190,8 @@ document.addEventListener('DOMContentLoaded', () => {
       if (response.ok) {
         const data = await response.json();
         showStatus(data.message || 'Sua conta e dados foram apagados permanentemente.', true);
-        localStorage.setItem("id", null);
-        localStorage.setItem("profile", null);
+        localStorage.setItem("id", "");
+        localStorage.setItem("profile", "");
         window.location.href = "../entrar/helpmed.html";
       } else {
         throw new Error('Erro no servidor');

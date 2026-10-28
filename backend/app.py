@@ -9,6 +9,7 @@ from controllers.medico_controller import med_controller
 from controllers.paciente_controller import pac_controller
 from controllers.atend_controller import atend_controller
 from controllers.arquivo_controller import arq_controller
+from controllers.atend_previo_controller import prev_controller
 
 
 def create_app():
@@ -24,9 +25,11 @@ def create_app():
     with app.app_context():
         db.create_all()
 
+    #Blueprints
     app.register_blueprint(med_controller)
     app.register_blueprint(pac_controller)
     app.register_blueprint(atend_controller)
+    app.register_blueprint(prev_controller)
     app.register_blueprint(arq_controller)
 
     return app

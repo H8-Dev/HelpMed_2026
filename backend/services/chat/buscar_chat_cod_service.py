@@ -5,6 +5,7 @@ class BuscarChatCodService:
         chats = ChatRepository.buscar_chats_user(id)
 
         if not chats:
-            raise ValueError("Falha")
+            return "User não possui nenhum chat no momento."
+            
 
         return [chat.to_dict() for chat in chats]
