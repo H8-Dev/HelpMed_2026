@@ -31,10 +31,11 @@ class AtendimentoController:
             if body is None:
                 body = request.form.to_dict()
 
-            chat = str(body.get("chat_id", ""))
-            mensagem = body.get("mensagem")
+            chat = str(body.get("id"))
+            mensagem = body.get("message")
 
             mensagem_limpa = json.dumps(mensagem)
+            
 
             service = EnviarMensagemChat()
             service.executar(chat, mensagem_limpa)
@@ -42,10 +43,12 @@ class AtendimentoController:
             return jsonify("Mensagem enviada com sucesso!"), 204
 
         except ValueError as error:
+            print("Erro ao enviar mensagem:", str(error))
             return jsonify({"error": str(error)}), 400
 
         except Exception as e:
             db.session.rollback()
+            print("Erro ao enviar mensagem:", str(e))
             return jsonify({"error": "Erro ao enviar mensagem."}), 500
 
 ## @atend_controller.post('/chats')

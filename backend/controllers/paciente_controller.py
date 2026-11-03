@@ -78,19 +78,24 @@ class PacienteController:
             db.session.rollback()
             return jsonify({"error": "Erro ao realizar o login do paciente."}), 500
 
-    #@pac_controller.post('/pacientes/email') - Unfinished
-    #def email_paciente():
-    #    try:
-    #        body = request.get_json(silent=True)
-    #        id = str(body.get("id", ""))
-    #
-    #        service = EmailPacienteService()
-    #        result = service.executar(id)
-    #        return jsonify("Email enviado com sucesso!"), 200
-    #
-    #    except ValueError as error:
-    #       return jsonify({"error": str(error)}), 400
+    @pac_controller.post('/pacientes/email')
+    def email_paciente():
+        try:
+            body = request.get_json(silent=True)
+            id = str(body.get("id", ""))
     
+            service = EmailPacienteService()
+            service.executar(id)
+            return jsonify("Email enviado com sucesso!"), 200
+    
+        except ValueError as error:
+           if error.type == "GENERIC":
+              return jsonify({"error": str(error.e)}), 500
+           
+           if error.type == "STMP":
+              return jsonify({"error": str(error.e)}), 500
+           
+           return jsonify({"error": str(error.e)}), 400
         
 
     @pac_controller.put('/pacientes/desativar')
@@ -113,10 +118,9 @@ class PacienteController:
     @pac_controller.get('/pacientes/email/<int:cpf>')
     def get_email(cpf):
         try:
-            service = EmailPacienteService()
+            service = BuscarPacCpfService()
             paciente = service.executar(cpf)
-            
-            return jsonify(paciente.email), 200
+            return jsonify(paciente['email']), 200
 
         except ValueError as error:
             return jsonify({"error": str(error)}), 400

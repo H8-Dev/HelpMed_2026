@@ -80,19 +80,24 @@ class MedicoController:
             db.session.rollback()
             return jsonify({"error": "Erro ao realizar o login do médico."}), 500
 
-    #@med_controller.post('/medicos/email') - Unfinished
-    #def email_medico():
-    #    try:
-    #        body = request.get_json(silent=True)
-    #        id = str(body.get("id", ""))
-    #
-    #        service = EmailMedicoService()
-    #        result = service.executar(id)
-    #
-    #        return jsonify("Email enviado com sucesso!"), 200
-    #
-    #    except ValueError as error:
-    #        return jsonify({"error": str(error)}), 400
+    @med_controller.post('/medicos/email')
+    def email_medico():
+        try:
+            body = request.get_json(silent=True)
+            id = str(body.get("id", ""))
+    
+            service = EmailMedicoService()
+            service.executar(id)
+            return jsonify("Email enviado com sucesso!"), 200
+    
+        except ValueError as error:
+           if error.type == "GENERIC":
+              return jsonify({"error": str(error.e)}), 500
+           
+           if error.type == "STMP":
+              return jsonify({"error": str(error.e)}), 500
+           
+           return jsonify({"error": str(error.e)}), 400
 
     @med_controller.put('/medicos/desativar')
     def desativar_medico():
@@ -114,10 +119,10 @@ class MedicoController:
     @med_controller.get('/medicos/email/<int:crm>')
     def get_email(crm):
         try:
-            service = EmailMedicoService()
-            email = service.executar(crm)
+            service = BuscarMedicoPorCRMService()
+            medico = service.executar(crm)
 
-            return jsonify(email), 200
+            return jsonify(medico['email']), 200
 
         except ValueError as error:
             return jsonify({"error": str(error)}), 400

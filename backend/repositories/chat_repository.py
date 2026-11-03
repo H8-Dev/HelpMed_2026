@@ -28,8 +28,8 @@ class ChatRepository:
     def enviar_mensagem(id, mensagem):
         query = text("CALL sp_enviar_mensagem(:id, :mensagem)")
         result = db.session.execute(query, {"id": id, "mensagem": mensagem})
-        db.session.commit()
         status = result.mappings().first()
         result.close()
+        db.session.commit()
 
-        return status['status'] if status else False
+        return status['TRUE'] if status else False

@@ -72,6 +72,7 @@ DROP PROCEDURE IF EXISTS sp_login_medico;
 DROP PROCEDURE IF EXISTS sp_login_paciente;
 DROP PROCEDURE IF EXISTS sp_buscar_chats;
 DROP PROCEDURE IF EXISTS sp_atend_previo;
+DROP PROCEDURE IF EXISTS sp_enviar_mensagem;
 
 DELIMITER $
 CREATE PROCEDURE sp_login_medico(IN param_crm VARCHAR(15), IN param_senha VARCHAR(50))
@@ -140,4 +141,26 @@ BEGIN
 	SELECT * FROM chats WHERE chat_id = last_insert_id();
 
 END $
+
+CREATE PROCEDURE sp_enviar_mensagem(in param_id bigint, in param_msg JSON)
+BEGIN
+
+	DECLARE var_check boolean;
+
+	START TRANSACTION;
+
+	SELECT chat_id INTO var_check FROM chats WHERE chat_id = param_id;
+
+	UPDATE chats
+    SET dados = JSON_ARRAY_APPEND(dados, '$.messages', param_msg), last_update = CURRENT_TIMESTAMP
+    WHERE chat_id = param_id;
+    
+    IF var_check IS NULL THEN
+		ROLLBACK;
+	ELSE
+		COMMIT;
+        SELECT TRUE;
+	END IF;
+	
+END$
 DELIMITER ;
