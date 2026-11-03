@@ -15,8 +15,8 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
   SQLAlchemy como ORM<br>
   Frontend feito com HTML5, CSS3 e JavaScript
 
-<h2>Funcionalidades | 6/23</h2>
-<h3>🟢 Concluído e Testado | 6 </h3>
+<h2>Funcionalidades | 10/24</h2>
+<h3>🟢 Concluído e Testado | 10 </h3>
 -> Cadastro de novos médicos e pacientes 🟢 <br>
 -> Login de usuários existentes 🟢 <br>
 -> Navegador de arquivos de cada usuário 🟢 <br>
@@ -24,19 +24,17 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
 -> Adição de Novos arquivos 🟢 <br>
 -> Atualização de dados nas configurações do site 🟢 <br>
 -> Deletamento de informações do paciente, com cascata para apagar seus dados como chats e arquivos 🟢 <br>
-
-<h3>🟠 Concluído e testando | 3 </h3>
--> Navegador de arquivos para achar informações 🟠 <br>
--> Chat com atendente virtual para informar problemas 🟠 <br>
--> Troca de tela de chat salvando a atual 🟠 <br>
+-> Email automático com um resumo de o que fazemos com os dados do cliente 🟢 <br>
+-> Aba lateral com todos os chats que serão salvos ao paciente trocas entre seus chats 🟢 <br>
+-> Troca de tela de chat salvando a atual 🟢 <br>
 
 <h3>🟡 Em progresso | 6 </h3>
+-> Chat com atendente virtual para informar problemas 🟡 <br>
+-> Navegador de arquivos para achar informações 🟡 <br>
 -> Criação de gráfico a partir de informações selecionadas 🟡 <br>
 -> O sistema deve permitir o paciente informar seus problemas 🟡 <br>
 -> Editor de arquivos 🟡 <br>
 -> Compartilhamento de arquivos enter médico e paciente 🟡 <br>
--> Aba lateral com todos os chats que serão salvos ao paciente trocas entre seus chats 🟡 <br>
--> Email automático com um resumo de o que fazemos com os dados do cliente 🟡 <br>
 
 <h3>🔴 Não iniciado | 7 </h3>
 -> Direcionamento de paciente a médico 🔴 <br>
