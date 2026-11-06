@@ -15,6 +15,9 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
   SQLAlchemy como ORM<br>
   Frontend feito com HTML5, CSS3 e JavaScript
 
+<h2>Diagrama de Classes do Projeto</h2>
+<p align="center" ><img width="665" height="989" alt="UML_Class HelpMed" src="https://github.com/user-attachments/assets/bbb6ea22-1c56-457b-9474-c03b3025ab28" /></p>
+
 <h2>Funcionalidades | 10/24</h2>
 <h3>🟢 Concluído e Testado | 10 </h3>
 -> Cadastro de novos médicos e pacientes 🟢 <br>
