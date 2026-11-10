@@ -6,4 +6,10 @@ from models.database import db
 pag_controller = Blueprint("pag_controller", __name__)
 
 class PagamentoController:
-    pass
+    @pag_controller.get('/pagamentos')
+    def historico():
+        return
+
+    @pag_controller.post('/pagamentos')
+    def gerar_pagamento():
+        return

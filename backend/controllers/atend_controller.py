@@ -24,15 +24,13 @@ class AtendimentoController:
         except ValueError as error:
             return jsonify({"error": str(error)}), 500
 
-    @atend_controller.post('/chats/messages') #MaybeDone
+    @atend_controller.post('/chats/messages')
     def nova_msg():
         try:
-            body = request.get_json(silent=True)
-            if body is None:
-                body = request.form.to_dict()
+            body = request.get_json(silent=True) or request.form.to_dict()
 
-            chat = str(body.get("id"))
-            mensagem = body.get("message")
+            chat = str(body['id'])
+            mensagem = body['message']
 
             mensagem_limpa = json.dumps(mensagem)
             
@@ -50,6 +48,3 @@ class AtendimentoController:
             db.session.rollback()
             print("Erro ao enviar mensagem:", str(e))
             return jsonify({"error": "Erro ao enviar mensagem."}), 500
-
-## @atend_controller.post('/chats')
-## def gerarAtend(paciente, medico, av):

@@ -18,18 +18,16 @@ class MedicoController:
     @med_controller.post('/medicos/cadastrar')
     def cadastrar_medico():
         try:
-            body = request.get_json(silent=True)
-            if body is None:
-                body = request.form.to_dict()
+            body = request.get_json(silent=True) or request.form.to_dict()
 
             dados = {
-                "crm": str(body.get("crm", "")),
-                "cpf": str(body.get("cpf", "")),
-                "senha": str(body.get("senha", "")),
-                "nome": str(body.get("nome", "")),
-                "sobrenome": str(body.get("sobrenome", "")),
-                "email": str(body.get("email", "")),
-                "formacao": str(body.get("formacao", ""))
+                "crm": str(body['crm']),
+                "cpf": str(body['cpf']),
+                "senha": str(body['senha']),
+                "nome": str(body['nome']),
+                "sobrenome": str(body['sobrenome']),
+                "email": str(body['email']),
+                "formacao": str(body['formacao'])
             }
 
             service = CriarMedicoService()
@@ -45,7 +43,7 @@ class MedicoController:
 
 
     @med_controller.get('/medicos/buscar/formacao/<string:formacao>')
-    def buscar_medico_por_formacao(formacao):
+    def buscar_medico_formacao(formacao):
 
         service = BuscarMedicoPorFormacaoService()
         medicos = service.executar(formacao)
@@ -58,12 +56,10 @@ class MedicoController:
     @med_controller.post('/medicos/login')
     def login_medico():
         try:
-            body = request.get_json(silent=True)
-            if body is None:
-                body = request.form.to_dict()
+            body = request.get_json(silent=True) or request.form.to_dict()
         
-            crm = str(body.get("crm", "")),
-            senha = str(body.get("senha", ""))
+            crm = str(body['crm']),
+            senha = str(body['senha'])
             
             service = LoginMedicoService()
             validacao = service.login(crm, senha)
@@ -105,7 +101,7 @@ class MedicoController:
             body = request.get_json(silent=True)
             crm = body
             service = DesativarMedicoService()
-            execute = service.desativar(crm)
+            service.desativar(crm)
     
             return jsonify({"message": "Medico desativado"}), 200
 
@@ -130,15 +126,13 @@ class MedicoController:
     @med_controller.put('/medicos/atualizar')
     def atualizar_medico():
         try:
-            body = request.get_json(silent=True)
-            if body is None:
-                body = request.form.to_dict()
+            body = request.get_json(silent=True) or request.form.to_dict()
 
-            crm = str(body.get("crm", ""))
+            crm = str(body['crm'])
             dados = {
-                    "senha": str(body.get("senha", "")),
-                    "email": str(body.get("email", "")),
-                    "formacao": str(body.get("formacao", ""))
+                    "senha": str(body['senha']),
+                    "email": str(body['email']),
+                    "formacao": str(body['formacao'])
                     }
 
             service = UpdateMedicoService()

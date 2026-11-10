@@ -33,7 +33,7 @@ class Arquivo(db.Model):
     def deletar(self):
         db.session.delete(self)
         db.session.commit()
-
+        
     def buscar_arquivo(arq_id):
         return Arquivo.query.filter_by(arq_id=arq_id).first()
 

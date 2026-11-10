@@ -32,6 +32,7 @@ chat_id int PRIMARY KEY auto_increment NOT NULL,
 dados JSON NOT NULL,
 c_pac_id VARCHAR(14) NOT NULL,
 c_med_id VARCHAR(9),
+type VARCHAR(20) NOT NULL,
 ativo BOOLEAN DEFAULT true NOT NULL,
 constraint c_pac_id
 	foreign key (c_pac_id) references pacientes(cpf),
@@ -73,6 +74,7 @@ DROP PROCEDURE IF EXISTS sp_login_paciente;
 DROP PROCEDURE IF EXISTS sp_buscar_chats;
 DROP PROCEDURE IF EXISTS sp_atend_previo;
 DROP PROCEDURE IF EXISTS sp_enviar_mensagem;
+DROP PROCEDURE IF EXISTS sp_buscar_arquivos_compartilhados;
 
 DELIMITER $
 CREATE PROCEDURE sp_login_medico(IN param_crm VARCHAR(15), IN param_senha VARCHAR(50))
@@ -127,7 +129,7 @@ BEGIN
 	FROM pacientes
 	WHERE CAST(REGEXP_REPLACE(cpf, '[^0-9]', '') AS SIGNED) = param_id;
 
-	INSERT INTO chats (dados, c_pac_id) VALUES ( JSON_OBJECT('id', NULL, 'name', var_name, 'avatar', 'IA', 'avatarClass', 'ia-avatar', 'messages', JSON_ARRAY(JSON_OBJECT('text', 'Olá! Eu sou a Atendente Virtual da HelpMed e estou aqui para ajudar você com suas dores. Por favor informe a seguir o que você está sentindo para que você seja direcionado a um profissional da saúde o mais rápido possível.', 'type', 'ia', 'avatar', 'IA', 'sender', 'IA')) ), var_check);
+	INSERT INTO chats (dados, type, c_pac_id) VALUES ( JSON_OBJECT('id', NULL, 'name', var_name, 'avatar', 'IA', 'avatarClass', 'ia-avatar', 'messages', JSON_ARRAY(JSON_OBJECT('text', 'Olá! Eu sou a Atendente Virtual da HelpMed e estou aqui para ajudar você com suas dores. Por favor informe a seguir o que você está sentindo para que você seja direcionado a um profissional da saúde o mais rápido possível.', 'type', 'ia', 'avatar', 'IA', 'sender', 'IA')) ), "pat_ia", var_check);
 
 	IF var_check IS NULL THEN
 		ROLLBACK;
@@ -162,5 +164,19 @@ BEGIN
         SELECT TRUE;
 	END IF;
 	
+END$
+
+CREATE PROCEDURE sp_buscar_arquivos_compartilhados (IN param_chat_id BIGINT)
+BEGIN
+	DECLARE var_pac VARCHAR(14);
+    DECLARE var_med VARCHAR(9);
+    
+    SELECT c_pac_id, c_med_id INTO var_pac, var_med
+    FROM chats
+    WHERE chat_id = param_chat_id;
+    
+    SELECT * FROM arquivos
+    WHERE a_pac_id = var_pac AND a_med_id = var_med;
+    
 END$
 DELIMITER ;

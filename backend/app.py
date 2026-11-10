@@ -3,6 +3,7 @@ from flask_cors import CORS #type: ignore
 from dotenv import load_dotenv #type: ignore
 import os
 
+load_dotenv()
 
 from models.database import db
 from models.mail import mail
@@ -14,8 +15,6 @@ from controllers.atend_previo_controller import prev_controller
 
 
 def create_app():
-    load_dotenv()
-
     app = Flask(__name__)
 
     #Config Database
@@ -46,6 +45,14 @@ def create_app():
 
     mail.init_app(app)
 
+    #Configurações do uso da API do Gemini
+    app.config['GEMINI_API_KEY'] = os.getenv('GEMINI_API_KEY')
+    app.config['GEMINI_API_PROMPT'] = os.getenv('GEMINI_API_PROMPT')
+    app.config['GEMINI_API_MODELS'] = [
+        "gemini-3.8-flash",       
+        "gemini-3.5-flash-lite",
+        "gemini-3.1-flash-lite"
+    ]
 
     return app
 

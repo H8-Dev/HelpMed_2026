@@ -3,8 +3,11 @@
  */
 const currentProfile = localStorage.getItem("profile"); // 'DOCTOR' or 'PATIENT'
 let activeChatId = null;
+let chatType = null;
 let useRealFlaskBackend = false; // Auto-detected or switched
 const FLASK_API_BASE = 'http://127.0.0.1:5000/chats';
+const btnFile = document.getElementById("btnFile");
+const fileInput = document.getElementById("file-input");
 const btnNew = document.getElementById("btnNew")
 /**
  * Fallback In-Memory Mock Flask Database & Backend Simulation
@@ -19,7 +22,7 @@ const mockDatabase = {
             messages: [
                 { sender: 'IA', avatar: 'IA', type: 'ia', text: 'Resumo inicial da IA: Paciente relata dores na região lombar há 3 dias.' },
                 { sender: 'P', avatar: 'P', type: 'patient', text: 'Doutor, a dor piora quando fico muito tempo sentado.' },
-                { sender: 'M', avatar: 'M', type: 'doctor_sent', text: 'Olá João, recomendo repouso e manter a postura. Prescrevi um analgésico leve.' }
+                { sender: 'M', avatar: 'M', type: 'doctor', text: 'Olá João, recomendo repouso e manter a postura. Prescrevi um analgésico leve.' }
             ]
         },
         {
@@ -57,7 +60,7 @@ const mockDatabase = {
                     text: 'A atendente virtual da HelpMed pode enviar diferentes mensagens, entre elas: Lembretes sobre agendamento, oferecer a opção de pagar suas consultas, informar seus problemas para que a IA encontre um médico apropriado e fazer perguntas sobre os problemas do paciente para enviar diretamente para o médico que irá atendê-lo.' 
                 },
                 { sender: 'IA', avatar: 'IA', type: 'ia', text: 'Olá! Como posso te ajudar hoje? Caso esteja sentindo algum sintoma, me descreva abaixo para eu direcionar ao médico especialista ideal.' },
-                { sender: 'P', avatar: 'P', type: 'patient_sent', text: 'Olá, estou sentindo dores de cabeça frequentes desde ontem.' }
+                { sender: 'P', avatar: 'P', type: 'patient', text: 'Olá, estou sentindo dores de cabeça frequentes desde ontem.' }
             ]
         },
         {
@@ -67,7 +70,7 @@ const mockDatabase = {
             avatarClass: 'doctor-avatar',
             messages: [
                 { sender: 'M', avatar: 'D', type: 'doctor', text: 'Olá! Como está evoluindo com o tratamento prescrito?' },
-                { sender: 'P', avatar: 'P', type: 'patient_sent', text: 'Sinto melhoras significativas nas dores das articulações, Doutor!' }
+                { sender: 'P', avatar: 'P', type: 'patient', text: 'Sinto melhoras significativas nas dores das articulações, Doutor!' }
             ]
         },
         {
@@ -112,19 +115,31 @@ const ApiService = {
         return [];
     },
 
-    async postMessage(chatId, messageObj) {
+    async postMessage(chatId, messageObj, chatType) {
         if (useRealFlaskBackend) {
+            if (chatType === 'pat_ia') {
+                try {
+                    const res = await fetch(`${FLASK_API_BASE}/messages-ia`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: chatId, message: messageObj })
+                    });
+                    if (res.ok) return await res.json();
+                } catch (err) {
+                    console.warn("Failed posting message to Flask server.");
+                }}
             
-            try {
-                const res = await fetch(`${FLASK_API_BASE}/messages`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ id: chatId, message: messageObj })
-                });
-                if (res.ok) return await res.json();
-            } catch (err) {
-                console.warn("Failed posting message to Flask server.");
-            }
+            else{  
+                try {
+                    const res = await fetch(`${FLASK_API_BASE}/messages`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ id: chatId, message: messageObj })
+                    });
+                    if (res.ok) return await res.json();
+                } catch (err) {
+                    console.warn("Failed posting message to Flask server.");
+                }}
         }
         // Fallback Mock Persistence
         const allChats = [...mockDatabase.doctor_chats, ...mockDatabase.patient_chats];
@@ -188,6 +203,7 @@ async function renderConversationsList() {
     if (availableChats && availableChats.length > 0) {
         const isValidActive = availableChats.some(c => {
             const chatId = c.chat_id || (typeof c.dados === 'string' ? JSON.parse(c.dados).id : c.dados?.id);
+            
             return chatId === activeChatId;
         });
         if (!isValidActive) {
@@ -199,7 +215,6 @@ async function renderConversationsList() {
     }
 
     availableChats.forEach(chat => {
-        // CORREÇÃO CRUCIAL: Se 'chat.dados' for uma string, transformamos em objeto com JSON.parse()
         let dadosObj = chat.dados;
         if (typeof dadosObj === 'string') {
             try {
@@ -220,12 +235,13 @@ async function renderConversationsList() {
         const chatMessages = info.messages || [];
         const lastMsgObj = chatMessages.length > 0 ? chatMessages[chatMessages.length - 1] : null;
         const lastMsgText = lastMsgObj ? lastMsgObj.text : '';
+        const lastMsgLimpo = lastMsgText.replace(/<br\s*\/?>/gi, ' ');
 
         li.innerHTML = `
             <div class="patient-avatar ${info.avatarClass || ''}">${info.avatar || 'P'}</div>
             <div class="patient-info">
                 <span class="patient-name">${info.name || 'Conversa'}</span>
-                <span class="patient-last-msg">${lastMsgText}</span>
+                <span class="patient-last-msg">${lastMsgLimpo}</span>
             </div>
         `;
         listEl.appendChild(li);
@@ -248,7 +264,7 @@ async function renderActiveChat() {
         return id === activeChatId;
     });
     if (!chat) return;
-
+    
     // Converte a string 'dados' do banco em objeto JavaScript, se necessário
     let dadosObj = chat.dados;
     if (typeof dadosObj === 'string') {
@@ -258,7 +274,8 @@ async function renderActiveChat() {
             dadosObj = {};
         }
     }
-
+    
+    chatType = chat.type
     const info = dadosObj || chat; 
 
     // Header Elements update
@@ -280,25 +297,28 @@ async function renderActiveChat() {
         messages.forEach(msg => {
             const msgDiv = document.createElement('div');
             // Mantém a sua lógica original de renderização de tipos de mensagens
-            if (msg.type === 'info_card') {
-                msgDiv.className = 'message ia-message';
-                msgDiv.innerHTML = `<div class="message-avatar ia-avatar">IA</div><div class="info-card-bubble">${msg.text}</div>`;
-            } else if (msg.type === 'ia') {
+            if (msg.type === 'ia') {
                 msgDiv.className = 'message ia-message';
                 msgDiv.innerHTML = `<div class="message-avatar ia-avatar">IA</div><div class="message-bubble ia-bubble">${msg.text}</div>`;
-            } else if (msg.type === 'patient') {
-                msgDiv.className = 'message patient-message';
-                msgDiv.innerHTML = `<div class="message-avatar">P</div><div class="message-bubble patient-bubble">${msg.text}</div>`;
-            } else if (msg.type === 'doctor') {
-                msgDiv.className = 'message patient-message';
-                msgDiv.innerHTML = `<div class="message-avatar doctor-avatar">D</div><div class="message-bubble ia-bubble">${msg.text}</div>`;
-            } else if (msg.type === 'doctor_sent') {
-                msgDiv.className = 'message sent-message';
+            }
+            if(currentProfile === 'PATIENT'){
+                if (msg.type === 'patient') {
+                    msgDiv.className = 'message sent-message';
+                    msgDiv.innerHTML = `<div class="message-avatar">P</div><div class="message-bubble patient-bubble">${msg.text}</div>`;
+                }
+                else if (msg.type === 'doctor') {
+                msgDiv.className = 'message doctor-message';
                 msgDiv.innerHTML = `<div class="message-avatar doctor-avatar">M</div><div class="message-bubble doctor-sent-bubble">${msg.text}</div>`;
-            } else if (msg.type === 'patient_sent') {
-                msgDiv.className = 'message sent-message';
+            }}
+            else {
+                if (msg.type === 'patient') {
+                msgDiv.className = 'message patient-message';
                 msgDiv.innerHTML = `<div class="message-avatar">P</div><div class="message-bubble patient-sent-bubble">${msg.text}</div>`;
             }
+            else if (msg.type === 'doctor') {
+                msgDiv.className = 'message sent-message';
+                msgDiv.innerHTML = `<div class="message-avatar doctor-avatar">D</div><div class="message-bubble doctor-bubble">${msg.text}</div>`;
+            }}
             messagesContainer.appendChild(msgDiv);
         });
     }
@@ -318,32 +338,19 @@ async function sendMessage() {
     const newMessageObj = currentProfile === 'DOCTOR' ? {
         sender: 'M',
         avatar: 'M',
-        type: 'doctor_sent',
+        type: 'doctor',
         text: text
     } : {
         sender: 'P',
         avatar: 'P',
-        type: 'patient_sent',
+        type: 'patient',
         text: text
     };
     input.value = '';
-    // Send to Flask API backend (or mock fallback)
-    await ApiService.postMessage(activeChatId, newMessageObj);
-    // Refresh UI dynamically without reloading screen
-    await renderConversationsList();
-    // Auto-trigger virtual assistant response if chatting with AI as Patient
-    if (currentProfile === 'PATIENT' && activeChatId === 'pat_ia') {
-        setTimeout(async () => {
-            const aiReply = {
-                sender: 'IA',
-                avatar: 'IA',
-                type: 'ia',
-                text: 'Entendido. Registrei suas informações no seu prontuário e estou encaminhando para a equipe médica responsável.'
-            };
-            await ApiService.postMessage(activeChatId, aiReply);
-            await renderConversationsList();
-        }, 1000);
-    }    
+    await ApiService.postMessage(activeChatId, newMessageObj, chatType);
+    // Refresh UI after sending message
+    await renderActiveChat();
+    await renderConversationsList();  
 }
 
 btnNew.addEventListener('click', async() => {
@@ -380,3 +387,52 @@ window.onload = async function() {
     }
     await applyProfileUI();
 };
+
+ btnFile.addEventListener('click', () => fileInput.click());
+
+  fileInput.addEventListener('change', async (e) => {
+    const files = Array.from(e.target.files);
+    if (files.length === 0) return;
+
+    for (const file of files) {
+      const ext = file.name.split('.').pop().toLowerCase();
+
+      const parsedId = localStorage.getItem("id");
+      const data = await convertorArquivos(file);
+      
+      const newFile = {
+         type: (ext === 'doc' || ext === 'docx') ? 'doc' : 'pdf',
+         name: file.name,
+         content: data,
+         pac_id: profile === 'PATIENT' ? parsedId : null,
+         med_id: profile === 'DOCTOR' ? parsedId : null
+       };
+      try {
+         const response = await fetch(`${API_URL}/salvar`, {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify(newFile)
+         });
+        if (response.ok) {
+            const responseData = await response.json();
+            const arqId = typeof responseData === 'object' ? responseData.arq_id : responseData;
+            const compartilhar = await fetch(`http://127.0.0.1:5000/arquivos/compartilhar`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    arq_id: arqId,
+                    chat_id: activeChatId
+                })
+            });
+            if (compartilhar.ok) {
+                await renderConversationsList();
+            } else{ console.warn('Erro ao compartilhar o arquivo:', await compartilhar.text());}
+         } else {
+           throw new Error(`Erro no POST /salvar: ${response.status}`);
+         }
+       } catch (err) {
+        console.warn('Erro ao enviar arquivo:', err);
+       }
+      };
+      fileInput.value = '';
+    })

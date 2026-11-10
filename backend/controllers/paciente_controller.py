@@ -38,29 +38,13 @@ class PacienteController:
             db.session.rollback()
             return jsonify({"error": "Erro ao cadastrar paciente."}), 500
 
-    #@pac_controller.get('/pacientes/buscar/<int:paciente_cpf>')
-    #def buscar_paciente_por_cpf(paciente_cpf):
-    #
-    #    cpf_limpo = f"{paciente_cpf}"
-    #    cpf_limpo = f"{cpf_limpo[:3]}.{cpf_limpo[3:6]}.{cpf_limpo[6:9]}-{cpf_limpo[9:]}"
-    #
-    #    service = BuscarPacCpfService()
-    #    paciente = service.executar(cpf_limpo)
-    #
-    #    if paciente is None:
-    #        return jsonify({"error": "Paciente não encontrado."}), 404
-    #
-    #    return jsonify(paciente), 200
-
     @pac_controller.post('/pacientes/login')
     def login_paciente():
         try:
-            body = request.get_json(silent=True)
-            if body is None:
-                body = request.form.to_dict()
+            body = request.get_json(silent=True) or request.form.to_dict()
 
-            cpf = str(body.get("cpf", "")),
-            senha = str(body.get("senha", ""))
+            cpf = str(body['cpf']),
+            senha = str(body['senha'])
         
             service = LoginPacienteService()
             validacao = service.login(cpf, senha)
@@ -82,7 +66,7 @@ class PacienteController:
     def email_paciente():
         try:
             body = request.get_json(silent=True)
-            id = str(body.get("id", ""))
+            id = str(body['id'])
     
             service = EmailPacienteService()
             service.executar(id)
@@ -128,14 +112,12 @@ class PacienteController:
     @pac_controller.put('/pacientes/atualizar')
     def atualizar_paciente():
         try:
-            body = request.get_json(silent=True)
-            if body is None:
-                body = request.form.to_dict()
+            body = request.get_json(silent=True) or request.form.to_dict()
 
-            cpf = str(body.get("cpf", ""))
+            cpf = str(body['cpf'])
             dados = {
-                    "senha": str(body.get("senha", "")),
-                    "email": str(body.get("email", ""))
+                    "senha": str(body['senha']),
+                    "email": str(body['email'])
                     }
 
             service = UpdatePacienteService()

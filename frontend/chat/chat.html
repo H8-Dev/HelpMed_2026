@@ -66,11 +66,10 @@
         <section class="chat-messages" id="chat-messages-container">
             <!-- Dynamic Messages Injection -->
         </section>
-
         <!-- Message Input Bar -->
         <footer class="chat-input-bar">
             <div class="input-container">
-                <div class="icon-attach" title="Anexar documento médico"><i class="fas fa-file-medical"></i></div>
+                <div class="icon-attach" id="btnFile" title="Adicionar Arquivos" onclick="document.getElementById('file-input').click()"><input type="file" id="file-input" style="display: none;"><i class="fas fa-file-medical"></i></div>
                 <input type="text" class="input-field" id="message-input" placeholder="Escreva sua mensagem..." onkeypress="handleKeyPress(event)">
                 <div class="icon-send" onclick="sendMessage()" title="Enviar mensagem"><i class="fas fa-arrow-right"></i></div>
             </div>

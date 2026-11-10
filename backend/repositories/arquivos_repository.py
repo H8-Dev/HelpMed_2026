@@ -19,17 +19,17 @@ class ArquivoRepository:
         return (Arquivo.query.filter((Arquivo.a_pac_id == id) | (Arquivo.a_med_id == id)).all())
 
     @staticmethod
-    def buscar_arquivos_por_paciente_e_medico(pac_id, med_id):
+    def buscar_arquivos_por_chat(chat_id):
         banco = db.session.get_bind().dialect.name
 
         if banco == "mysql":
-            query = text("SELECT * FROM arquivos WHERE CAST(REGEXP_REPLACE(a_med_id, '[^0-9]', '') AS SIGNED) = :med_id and CAST(REGEXP_REPLACE(a_pac_id, '[^0-9]', '') AS SIGNED) = :pac_id")
-            result = db.session.execute(query, {"med_id": med_id, "pac_id": pac_id})
+            query = text("CALL sp_buscar_arquivos_compartilhados(:chat_id)")
+            result = db.session.execute(query, {"chat_id": chat_id})
             arquivo_data = result.mappings().all()
             result.close()
 
-            return [Arquivo(**dict(arquivo)) for arquivo in arquivo_data]
-        return (Arquivo.query.filter(Arquivo.pac_id == pac_id and Arquivo.med_id == med_id).all())
+            return arquivo_data['TRUE'] if arquivo_data else False
+        return {"error": "Não sei fzr isso no sqlalchemy."}
 
     #@staticmethod
     #def compartilhar_arquivo_com_medico(arq_id, med_id):

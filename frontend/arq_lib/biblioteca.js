@@ -155,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       URL.revokeObjectURL(url);
   }
 
-  // 5. ADICIONAR NOVOS ARQUIVOS (BOTÃO FLUTUANTE DE MAIS)
+  // 5. ADICIONAR NOVOS ARQUIVOS
   btnFloatingAdd.addEventListener('click', () => fileInput.click());
 
   fileInput.addEventListener('change', async (e) => {

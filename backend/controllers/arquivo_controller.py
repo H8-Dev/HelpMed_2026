@@ -7,9 +7,10 @@ from pypdf import PdfReader #type: ignore
 from models.database import db
 
 from services.arquivo.buscar_arquivo_user_service import BuscarArquivoPorUser
-from services.arquivo.buscar_arquivo_paciente_service import BuscarArquivoPorPaciente
+from services.arquivo.buscar_arquivo_chat_service import BuscarArquivoPorChat
 from services.arquivo.salvar_arquivo_service import SalvarArquivoService
 from services.arquivo.buscar_arquivo_por_id_service import BuscarArquivoPorId
+from services.arquivo.compartilhar_medico_service import CompartilharArquivoService
 
 arq_controller = Blueprint("arq_controller", __name__)
 
@@ -50,7 +51,7 @@ class ArquivoController:
         return texto_limpo.strip()
 
     @arq_controller.get('/arquivos/usuario/<int:id>')
-    def buscar_arquivos_do_paciente(id):
+    def buscar_arquivo_user(id):
         service = BuscarArquivoPorUser()
         arquivos = service.executar(id)
 
@@ -83,7 +84,8 @@ class ArquivoController:
 
             service = SalvarArquivoService()
             arquivo = service.salvar(dados)
-            return jsonify("Novo arquivo salvo com sucesso."), 201
+            
+            return jsonify({"arq_id": arquivo['arq_id']}), 201
 
         except ValueError as error:
             return jsonify({"error": str(error)}), 400
@@ -92,23 +94,22 @@ class ArquivoController:
             db.session.rollback()
             return jsonify({"error": "Erro ao salvar o arquivo"}), 500
 
-    @arq_controller.post('/arquivos_med')
-    def buscar_arquivos_do_paciente_com_medico():
+    @arq_controller.post('/arquivos/editor')
+    def buscar_arquivo_chat():
 
         body = request.get_json(silent=True) or request.form
-        pac_id = str(body['pac_id'])
-        med_id = str(body['med_id'])
+        chat_id = str(body['chat_id'])
 
-        service = BuscarArquivoPorPaciente()
-        arquivos = service.executar(pac_id, med_id)
+        service = BuscarArquivoPorChat()
+        arquivos = service.executar(chat_id)
 
         if not arquivos:
-            return jsonify({"error": "Nenhum arquivo compartilhado com este paciente."}), 404
+            return jsonify({"error": "Nenhum arquivo encontrado para este chat."}), 404
 
         return jsonify(arquivos), 200
 
     @arq_controller.get('/arquivos/<int:arq_id>')
-    def buscar_arquivo_por_id(arq_id):
+    def buscar_arquivo_id(arq_id):
         service = BuscarArquivoPorId()
         arquivo = service.executar(arq_id)
 
@@ -128,6 +129,26 @@ class ArquivoController:
 
         return jsonify({"name": arquivo['nome_arq'],
                         "content": base64.b64encode(arquivo['dados']).decode('utf-8')}), 200
+
+    @arq_controller.put('/arquivos/compartilhar')
+    def compartilhar_arquivo():
+        try:
+            body = request.get_json(silent=True) or request.form
+            arq_id = str(body['arq_id'])
+            chat_id = str(body['chat_id'])
+
+            service = CompartilharArquivoService()
+            service.executar(arq_id, chat_id)
+
+            return jsonify({"message": "Arquivo compartilhado com sucesso."}), 200
+
+        except ValueError as error:
+            return jsonify({"error": str(error)}), 400
+
+        except SQLAlchemyError:
+            db.session.rollback()
+            return jsonify({"error": "Erro ao compartilhar o arquivo"}), 500
+
 
     @arq_controller.put('/arquivos/<int:arq_id>')
     def atualizar_arquivo(arq_id):
