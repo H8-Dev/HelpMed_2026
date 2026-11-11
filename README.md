@@ -40,7 +40,7 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
 -> Criação de gráfico a partir de informações selecionadas 🟡 <br>
 -> Editor de arquivos 🟡 <br>
 
-<h3>🔴 Não iniciado | 6 </h3>
+<h3>🔴 Não iniciado | 7 </h3>
 -> Direcionamento de paciente a médico 🔴 <br>
 -> Exibir um resumo das fichas providas pelo usuário 🔴 <br>
 -> Pagamento digital entre paciente e medico 🔴 <br>
