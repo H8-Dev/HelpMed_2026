@@ -11,7 +11,7 @@ Repositório com o trabalho feito para o projeto final do ensino médio com um a
 
 <h2>Projeto Realizado com as seguintes ferramentas:</h2>
   Backend em Flask<br>
-  Banco de Dados em MySQL | SQLite (Testes)<br>
+  Banco de Dados em MySQL<br>
   SQLAlchemy como ORM<br>
   Frontend feito com HTML5, CSS3 e JavaScript
 
