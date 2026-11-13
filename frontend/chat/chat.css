@@ -27,8 +27,10 @@
 }
 
 a {
-  text-decoration: none;
-  color: inherit;
+    width: auto;
+    height: auto;
+    text-decoration: none;
+    color: inherit;
 }
 
 * {

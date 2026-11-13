@@ -181,12 +181,12 @@ async function applyProfileUI() {
     const navForms = document.getElementById('nav-forms');
     const navAi = document.getElementById('nav-ai');
     if (currentProfile === 'DOCTOR') {
-        avatarBottom.textContent = 'M';
+        avatarBottom.innerHTML = '<a href="/config/configuracoes.html">M</a>';
         avatarBottom.style.backgroundColor = 'var(--avatar-doctor-bg)';
         navForms.style.display = 'flex';
         navAi.style.display = 'flex';
     } else {
-        avatarBottom.textContent = 'P';
+        avatarBottom.innerHTML = `<a href="/config/configuracoes.html">P</a>`;
         avatarBottom.style.backgroundColor = 'var(--avatar-patient-bg)';
         navForms.style.display = 'none';
         navAi.style.display = 'none';
